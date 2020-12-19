@@ -29,6 +29,7 @@ jobs:
         with:
           collection: test/rpg_api_collection.postman_collection.json
           environment: test/rpg_api_collection.postman_collection
+          reporters: emojitrain
   build-n-publish:
     name: Build and publish Python 🐍 distributions 📦 to PyPI and TestPyPI
     needs: Test
