@@ -28,7 +28,7 @@ jobs:
         uses: matt-ball/newman-action@master
         with:
           collection: test/rpg_api_collection.postman_collection.json
-          environment: test/rpg_api_collection.postman_collection
+          environment: test/rpg_api.postman_environment.json
           reporters: emojitrain
   build-n-publish:
     name: Build and publish Python 🐍 distributions 📦 to PyPI and TestPyPI
