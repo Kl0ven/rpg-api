@@ -1,0 +1,57 @@
+{
+	"info": {
+		"_postman_id": "973d6bc4-16dd-4b87-9436-8becf96747d9",
+		"name": "rpg_api_collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "search_inventory",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1286db1c-d285-4aaf-9c7d-25a117d2ae4a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"\r",
+							"pm.test(\"Body is OK\", function () {\r",
+							"    pm.response.to.have.body('\"do some magic!\"\\n')\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"d290f1ee-6c54-4b01-90e6-d701748f0851\",\r\n  \"name\": \"Widget Adapter\",\r\n  \"releaseDate\": \"2016-08-29T09:12:33.001Z\",\r\n  \"manufacturer\": {\r\n    \"name\": \"ACME Corporation\",\r\n    \"homePage\": \"https://www.acme-corp.com\",\r\n    \"phone\": \"408-867-5309\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{HOST}}:{{PORT}}/inventory",
+					"protocol": "http",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"inventory"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
