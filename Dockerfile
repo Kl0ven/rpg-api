@@ -7,10 +7,11 @@ COPY requirements.txt /usr/src/app/
 
 RUN pip3 install --no-cache-dir -r requirements.txt
 
-ADD . /usr/src/app
+COPY . /usr/src/app
 
 EXPOSE 8080
 
-ENTRYPOINT ["python3"]
+ENTRYPOINT ["gunicorn"]
+ENV MODE=PRODUCTION
 
-CMD ["-m", "rpg_api"]
+CMD ["-w", "4", "-b", "0.0.0.0:8080", "rpg_api.__main__:app"]
