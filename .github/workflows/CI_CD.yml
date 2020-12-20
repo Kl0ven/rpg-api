@@ -1,0 +1,60 @@
+name: CI/CD
+
+on: [push]
+
+jobs:
+  Test:
+    runs-on: ubuntu-18.04
+    strategy:
+      matrix:
+        python-version: [3.6, 3.7, 3.8]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          if [ -f requirements-dev.txt ]; then pip install -r requirements-dev.txt; fi
+
+      - name: Install Node JS 12.X
+        uses: actions/setup-node@v1
+        with:                               
+          node-version: 12.X
+
+      - name: Install Newman dependency 
+        run: npm install newman
+
+      - name: Run API in Background
+        run: |
+          python -m rpg_api &
+          sleep 10
+
+      - name: Test with newman
+        run: |
+          cd rpg_api/test
+          newman run rpg_api_collection.postman_collection.json -e rpg_api.postman_environment.json 
+
+  build-n-publish:
+    name: Build and publish To Docker Hub 🐳
+    needs: Test
+    runs-on: ubuntu-18.04
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+    steps:
+    - uses: actions/checkout@master
+    - name: Push to Docker Hub
+      uses: docker/build-push-action@v1
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_TOKEN }}
+        repository: kloven/rpg-api
+        tag_with_ref: true
+    - name: Docker Hub Description
+      uses: peter-evans/dockerhub-description@v2.1.0
+      env:
+        DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+        DOCKERHUB_PASSWORD: ${{ secrets.DOCKER_TOKEN }}
+        DOCKERHUB_REPOSITORY: kloven/rpg-api
