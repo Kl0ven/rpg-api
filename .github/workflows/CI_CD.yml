@@ -51,15 +51,24 @@ jobs:
       with:
         images: kloven/rpg-api # list of Docker images to use as base name for tags
         tag-sha: true # add git short SHA as Docker tag
-    - name: Push to Docker Hub
-      uses: docker/build-push-action@v1
+    - name: Output tag
+      run: echo ${{ steps.docker_meta.outputs.tags }}
+
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v1
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+    - name: Login to DockerHub
+      uses: docker/login-action@v1 
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_TOKEN }}
-        repository: kloven/rpg-api
+    - name: Push to Docker Hub
+      id: docker_build
+      uses: docker/build-push-action@v2
+      with:
+        push: true
         tags: ${{ steps.docker_meta.outputs.tags }}
-    - name: Output tag
-      run: echo ${{ steps.docker_meta.outputs.tags }}
     - name: Docker Hub Description
       uses: peter-evans/dockerhub-description@v2.1.0
       env:
