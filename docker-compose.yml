@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  rpg-api:
+    container_name: rpg-api
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+    command: watchmedo auto-restart --directory=./  --pattern=*.py --recursive -- python3 -m rpg_api
+    ports:
+      - '8080:8080'
+    volumes:
+      - .:/usr/src/app
+    restart: always
+    depends_on:
+      - db
+
+  db:
+    image: postgres:12
+    restart: always
+    container_name: rpg-api-postgres
+    environment:
+      POSTGRES_DB: 'rpg_api'
+      POSTGRES_PASSWORD: 'start'
+    ports:
+      - '5432:5432'
+    volumes:
+      - "db_data:/var/lib/postgresql/data"
+
+
+volumes:
+  db_data:
