@@ -58,6 +58,8 @@ jobs:
         password: ${{ secrets.DOCKER_TOKEN }}
         repository: kloven/rpg-api
         tags: ${{ steps.docker_meta.outputs.tags }}
+    - name: Output tag
+      run: echo ${{ steps.docker_meta.outputs.tags }}
     - name: Docker Hub Description
       uses: peter-evans/dockerhub-description@v2.1.0
       env:
