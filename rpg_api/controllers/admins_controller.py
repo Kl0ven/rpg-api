@@ -2,7 +2,7 @@ import connexion
 import six
 
 from rpg_api.swagger_models.inventory_item import InventoryItem  # noqa: E501
-from rpg_api.models.db import User
+from rpg_api.models import User
 from rpg_api import util
 
 

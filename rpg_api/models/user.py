@@ -1,5 +1,5 @@
 import peewee
-from rpg_api.models.db import database, peewee_signals
+from rpg_api.models import database, peewee_signals
 import datetime
 
 
