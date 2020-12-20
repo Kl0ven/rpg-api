@@ -20,16 +20,23 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
           if [ -f requirements-dev.txt ]; then pip install -r requirements-dev.txt; fi
 
+      - name: Install Node JS 12.X
+        uses: actions/setup-node@v1
+        with:                               
+          node-version: 12.X
+
+      - name: Install Newman dependency 
+        run: npm install newman
+
       - name: Run API in Background
         run: |
           python -m rpg_api &
           sleep 10
+
       - name: Test with newman
-        uses: matt-ball/newman-action@0.0.28
-        with:
-          collection: test/rpg_api_collection.postman_collection.json
-          environment: test/rpg_api.postman_environment.json
-          reporters: emojitrain
+        run: |
+          cd rpg_api/test
+          newman run rpg_api_collection.postman_collection.json -e rpg_api.postman_environment.json 
 
   build-n-publish:
     name: Build and publish Python 🐍 distributions 📦 to PyPI and TestPyPI
