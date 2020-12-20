@@ -19,7 +19,7 @@
 							"\r",
 							"\r",
 							"pm.test(\"Body is OK\", function () {\r",
-							"    pm.response.to.have.body('\"do some magic\"\\n')\r",
+							"    pm.response.to.have.body('\"do some magic!\"\\n')\r",
 							"})"
 						],
 						"type": "text/javascript"
