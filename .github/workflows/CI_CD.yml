@@ -25,11 +25,12 @@ jobs:
           python -m rpg_api &
           sleep 10
       - name: Test with newman
-        uses: matt-ball/newman-action@master
+        uses: matt-ball/newman-action@0.0.28
         with:
           collection: test/rpg_api_collection.postman_collection.json
           environment: test/rpg_api.postman_environment.json
           reporters: emojitrain
+
   build-n-publish:
     name: Build and publish Python 🐍 distributions 📦 to PyPI and TestPyPI
     needs: Test
