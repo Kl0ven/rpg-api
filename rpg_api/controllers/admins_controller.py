@@ -1,7 +1,8 @@
 import connexion
 import six
 
-from rpg_api.models.inventory_item import InventoryItem  # noqa: E501
+from rpg_api.swagger_models.inventory_item import InventoryItem  # noqa: E501
+from rpg_api.models.db import User
 from rpg_api import util
 
 
@@ -15,6 +16,7 @@ def add_inventory(body=None):  # noqa: E501
 
     :rtype: None
     """
+    u = User.create(title="huey", content='Hello!', members_only=True, )
     if connexion.request.is_json:
         body = InventoryItem.from_dict(connexion.request.get_json())  # noqa: E501
-    return 'do some magic!'
+    return u.title
