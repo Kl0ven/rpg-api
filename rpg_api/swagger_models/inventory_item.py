@@ -5,8 +5,8 @@ from datetime import date, datetime  # noqa: F401
 
 from typing import List, Dict  # noqa: F401
 
-from rpg_api.models.base_model_ import Model
-from rpg_api.models.manufacturer import Manufacturer  # noqa: F401,E501
+from rpg_api.swagger_models.base_model_ import Model
+from rpg_api.swagger_models.manufacturer import Manufacturer  # noqa: F401,E501
 from rpg_api import util
 
 
