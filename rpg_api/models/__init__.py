@@ -22,9 +22,6 @@ def init_models(app):
 
 
 def _init_models():
-    for m in models:
-        print(m, m.table_exists())
-        # if not m.table_exists():
-        m.create_table()
-    print(database.database.get_tables())
-    database.database.close()
+    db = database.database
+    db.create_tables(models)
+    db.close()

@@ -1,17 +1,15 @@
 import peewee
 from rpg_api.models import database, peewee_signals
 import datetime
-
+from config import CONFIG
 
 class User(database.Model, peewee_signals.Model):
-    title = peewee.CharField()
-    content = peewee.TextField()
-    members_only = peewee.BooleanField()
+    name = peewee.CharField()
     created = peewee.DateTimeField(default=datetime.datetime.now)
+    balance = peewee.DecimalField(default=CONFIG["start_money"])
 
     def __unicode__(self):
-        return self.title
+        return self.name
 
     class Meta:
-        order_by = ('-created',)
         db_table = "users"

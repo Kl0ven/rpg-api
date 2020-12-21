@@ -16,7 +16,7 @@ def add_inventory(body=None):  # noqa: E501
 
     :rtype: None
     """
-    u = User.create(title="huey", content='Hello!', members_only=True, )
+    u = User.create(name="Kloven")
     if connexion.request.is_json:
         body = InventoryItem.from_dict(connexion.request.get_json())  # noqa: E501
-    return u.title
+    return u.name

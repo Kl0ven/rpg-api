@@ -1,18 +1,15 @@
 import peewee
 from rpg_api.models import database, peewee_signals
-import datetime
+from rpg_api.models.inventory import Inventory
 
 
 class Item(database.Model, peewee_signals.Model):
-    title = peewee.CharField()
-    content = peewee.TextField()
-    members_only = peewee.BooleanField()
-    created = peewee.DateTimeField(default=datetime.datetime.now)
-    modified = peewee.DateTimeField()
+    slot = peewee.IntegerField()
+    name = peewee.CharField()
+    inventory = peewee.ForeignKeyField(Inventory, backref='item')
 
     def __unicode__(self):
-        return self.title
+        return self.name
 
     class Meta:
-        order_by = ('-created',)
         db_table = "items"
