@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from flask.logging import default_handler
+from flask import request, g
 import logging
 import sys
 import connexion
@@ -31,7 +32,7 @@ flask_app.logger.info("Running in {} mode with {} log level".format(mode, loggin
 config.load_config()
 
 # DB
-from rpg_api.models import database, init_models
+from rpg_api.models import database, init_models, User, Inventory
 db_url = 'sqlite:///rpg_api/test/CI.db' if mode == "CI" else os.environ.get('DATABASE_URL')
 flask_app.config['DATABASE'] = db_url
 database.init_app(flask_app)
@@ -40,6 +41,18 @@ init_models(flask_app)
 
 # adding api last to sort import 
 app.add_api('swagger.yaml', arguments={'title': 'RPG API'}, pythonic_params=True)
+
+# get user before each request
+@flask_app.before_request
+def get_or_create_user():
+    username = request.view_args.get("user")
+    query = User.select().where(User.name == username)
+    if query.exists():
+        user = query.get()
+    else:
+        user = User.create(name=username)
+        Inventory.create(user=user)
+    g.user = user
 
 if __name__ == '__main__':
     app.run(port=8080)

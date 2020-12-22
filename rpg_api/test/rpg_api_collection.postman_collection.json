@@ -6,28 +6,30 @@
 	},
 	"item": [
 		{
-			"name": "search_inventory",
+			"name": "get balance",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "1286db1c-d285-4aaf-9c7d-25a117d2ae4a",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200)\r",
 							"})\r",
 							"\r",
 							"\r",
-							"pm.test(\"Body is OK\", function () {\r",
-							"    pm.response.to.have.body('\"do some magic!\"\\n')\r",
+							"pm.test(\"Balance is 500\", function () {\r",
+							"    pm.response.to.have.body({\"balance\": 500.0})\r",
 							"})"
 						],
 						"type": "text/javascript"
 					}
 				}
 			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
-				"method": "POST",
+				"method": "GET",
 				"header": [],
 				"body": {
 					"mode": "raw",
@@ -39,19 +41,19 @@
 					}
 				},
 				"url": {
-					"raw": "http://{{HOST}}:{{PORT}}/inventory",
+					"raw": "http://{{HOST}}:{{PORT}}/get_balance/Kloven",
 					"protocol": "http",
 					"host": [
 						"{{HOST}}"
 					],
 					"port": "{{PORT}}",
 					"path": [
-						"inventory"
+						"get_balance",
+						"Kloven"
 					]
 				}
 			},
 			"response": []
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }

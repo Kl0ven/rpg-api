@@ -1,4 +1,5 @@
-from .default_config import DEFAULT_CONFIG, INTERNAL_CONFIG
+from .default_config import DEFAULT_CONFIG
+from .internal_config import INTERNAL_CONFIG
 import logging
 
 CONFIG = {}

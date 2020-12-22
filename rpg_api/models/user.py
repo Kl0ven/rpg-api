@@ -8,8 +8,14 @@ class User(database.Model, peewee_signals.Model):
     created = peewee.DateTimeField(default=datetime.datetime.now)
     balance = peewee.DecimalField(default=CONFIG["start_money"])
 
+    def __str__(self):
+        return "User ({})".format(self.name)
+
     def __unicode__(self):
-        return self.name
+        return str(self)
+    
+    def __repr__(self):
+        return str(self)
 
     class Meta:
         db_table = "users"
