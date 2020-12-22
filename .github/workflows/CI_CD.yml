@@ -29,6 +29,8 @@ jobs:
         run: npm install newman
 
       - name: Run API in Background
+        env:
+          MODE: CI
         run: |
           python -m rpg_api &
           sleep 10
