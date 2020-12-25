@@ -41,14 +41,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://{{HOST}}:{{PORT}}/get_balance/Kloven",
+					"raw": "http://{{HOST}}:{{PORT}}/balance/Kloven",
 					"protocol": "http",
 					"host": [
 						"{{HOST}}"
 					],
 					"port": "{{PORT}}",
 					"path": [
-						"get_balance",
+						"balance",
 						"Kloven"
 					]
 				}

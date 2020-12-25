@@ -30,9 +30,10 @@ flask_app.logger.info("Running in {} mode with {} log level".format(mode, loggin
 
 # Config
 config.load_config()
+from config import CONFIG
 
 # DB
-from rpg_api.models import database, init_models, User, Inventory
+from rpg_api.models import database, init_models, User, Inventory, Lootboxe
 db_url = 'sqlite:///rpg_api/test/CI.db' if mode == "CI" else os.environ.get('DATABASE_URL')
 flask_app.config['DATABASE'] = db_url
 database.init_app(flask_app)
@@ -51,7 +52,9 @@ def get_or_create_user():
         user = query.get()
     else:
         user = User.create(name=username)
-        Inventory.create(user=user)
+        i = Inventory.create(user=user)
+        for _ in range(CONFIG["start_lootboxes"]):
+            i.add_item(Lootboxe(rarety=CONFIG["lootboxes_rarety"]["common"]))
     g.user = user
 
 if __name__ == '__main__':

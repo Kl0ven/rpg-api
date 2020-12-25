@@ -17,7 +17,7 @@ tags:
   - name: Action
     description: All possible actions 
 paths:
-  /get_balance/{user}:
+  /balance/{user}:
     get:
       tags:
         - Information
