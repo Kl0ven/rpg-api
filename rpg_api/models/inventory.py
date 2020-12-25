@@ -12,12 +12,12 @@ class Inventory(database.Model, peewee_signals.Model):
         return "{} Inventory".format(self.user)
 
     def add_item(self, item):
-        from rpg_api.models.lootbox import Lootboxe
+        from rpg_api.models.lootbox import Lootbox
         item.slot = self.next_slot
         self.next_slot += 1
         item.inventory = self
-        if isinstance(item, Lootboxe):
-            item.name = "{} Lootboxe".format(
+        if isinstance(item, Lootbox):
+            item.name = "{} Lootbox".format(
                 CONFIG["invert_lootboxes_rarety"][item.rarety].capitalize())
         self.save()
         item.save()

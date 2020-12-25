@@ -7,9 +7,18 @@ LOOTBOXES_RARETY = {
 }
 
 
+LOOT_TYPE = {
+    "potion": 0,
+    "test": 1,
+    "test2": 2,
+    "couocu": 3
+}
+
 
 
 INTERNAL_CONFIG = {
     "lootboxes_rarety": LOOTBOXES_RARETY,
-    "invert_lootboxes_rarety": {v: k for k, v in LOOTBOXES_RARETY.items()}
+    "invert_lootboxes_rarety": {v: k for k, v in LOOTBOXES_RARETY.items()},
+    "loot_type": LOOT_TYPE,
+    "invert_loot_type": {v: k for k, v in LOOT_TYPE.items()},
 }

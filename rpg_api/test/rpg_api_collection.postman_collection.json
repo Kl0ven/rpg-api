@@ -54,6 +54,81 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "get inventory",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"\r",
+							"pm.test(\"Inventory equal to 3 lootboxes\", function () {\r",
+							"    pm.response.to.have.jsonBody([\r",
+							"        {\r",
+							"            \"name\": \"Common Lootbox\",\r",
+							"            \"rarety\": {\r",
+							"                \"name\": \"common\",\r",
+							"                \"value\": 0\r",
+							"            },\r",
+							"            \"slot\": 1\r",
+							"        },\r",
+							"        {\r",
+							"            \"name\": \"Common Lootbox\",\r",
+							"            \"rarety\": {\r",
+							"                \"name\": \"common\",\r",
+							"                \"value\": 0\r",
+							"            },\r",
+							"            \"slot\": 2\r",
+							"        },\r",
+							"        {\r",
+							"            \"name\": \"Common Lootbox\",\r",
+							"            \"rarety\": {\r",
+							"                \"name\": \"common\",\r",
+							"                \"value\": 0\r",
+							"            },\r",
+							"            \"slot\": 3\r",
+							"        }\r",
+							"    ])\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"d290f1ee-6c54-4b01-90e6-d701748f0851\",\r\n  \"name\": \"Widget Adapter\",\r\n  \"releaseDate\": \"2016-08-29T09:12:33.001Z\",\r\n  \"manufacturer\": {\r\n    \"name\": \"ACME Corporation\",\r\n    \"homePage\": \"https://www.acme-corp.com\",\r\n    \"phone\": \"408-867-5309\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{HOST}}:{{PORT}}/inventory/Kloven",
+					"protocol": "http",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"inventory",
+						"Kloven"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
