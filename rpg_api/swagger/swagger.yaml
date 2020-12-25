@@ -1,5 +1,6 @@
 openapi: 3.0.0
 servers:
+# Added by API Auto Mocking Plugin
 - url: https://localhost:8080
   description: Local server 
 info:
@@ -17,7 +18,7 @@ tags:
   - name: Action
     description: All possible actions 
 paths:
-  /get_balance/{user}:
+  /balance/{user}:
     get:
       tags:
         - Information
@@ -42,6 +43,31 @@ paths:
         '400':
           description: bad input parameter
       x-openapi-router-controller: rpg_api.controllers.balance_controller
+  /inventory/{user}:
+    get:
+        tags:
+          - Information
+        summary: Get inventroy information for a specific user
+        operationId: get_inventory
+        description: |
+          Return the inventory of a specific user 
+        parameters:
+          - in: path
+            name: user
+            description: the username of the user
+            required: true
+            schema:
+              type: string
+        responses:
+          '200':
+            description: Inventory information
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/inventory'
+          '400':
+            description: bad input parameter
+        x-openapi-router-controller: rpg_api.controllers.inventory_controller
       
 components:
   schemas:
@@ -52,3 +78,37 @@ components:
           type: number
       example:
         balance: 300
+    inventory:
+      type: array
+      items:
+        oneOf:
+          - $ref: '#/components/schemas/lootbox'
+          - $ref: '#/components/schemas/loot'
+    lootbox:
+      type: object
+      properties:
+        name: 
+          type: string
+        slot:
+          type: integer
+        rarety:
+          type: object
+          properties:
+            name:
+              type: string
+            value:
+              type: integer
+    loot:
+      type: object
+      properties:
+        name: 
+          type: string
+        slot:
+          type: integer
+        type:
+          type: object
+          properties:
+            name:
+              type: string
+            value:
+              type: integer

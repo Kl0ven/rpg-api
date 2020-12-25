@@ -2,7 +2,7 @@ import peewee
 from rpg_api.models.item import Item
 
 
-class Lootboxe(Item):
+class Lootbox(Item):
     rarety = peewee.IntegerField()
 
     def __unicode__(self):

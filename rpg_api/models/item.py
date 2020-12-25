@@ -6,7 +6,7 @@ from rpg_api.models.inventory import Inventory
 class Item(database.Model, peewee_signals.Model):
     slot = peewee.IntegerField()
     name = peewee.CharField()
-    inventory = peewee.ForeignKeyField(Inventory, backref='item')
+    inventory = peewee.ForeignKeyField(Inventory, backref='items')
 
     def __unicode__(self):
         return self.name

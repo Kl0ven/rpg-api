@@ -1,0 +1,8 @@
+RPG API:
+    Features:
+        0.1.0:
+            (GET) Balance:
+                ✔ remove Get prefix as it's in the Verbe @done(20-12-24 18:07)
+            (GET) Inventory:
+                ✔ Add ability to configutre starting LootBoxes @done(20-12-25 22:53)
+                ✔ Add Route @done(20-12-25 22:53)
