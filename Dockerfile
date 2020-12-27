@@ -1,10 +1,11 @@
 FROM python:3.8-slim
 
 RUN mkdir -p /usr/src/app
+RUN mkdir -p /usr/src/app/images
 WORKDIR /usr/src/app
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends libpq-dev python-dev gcc \
+    && apt-get install -y --no-install-recommends libpq-dev python-dev gcc libcairo2 \
     && rm -rf /var/lib/apt/lists/* 
 
 COPY requirements.txt /usr/src/app/

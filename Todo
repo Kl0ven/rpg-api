@@ -6,3 +6,13 @@ RPG API:
             (GET) Inventory:
                 ✔ Add ability to configutre starting LootBoxes @done(20-12-25 22:53)
                 ✔ Add Route @done(20-12-25 22:53)
+            (POST) open_lootbox:
+                ☐ Add route
+                ☐ Remove lootbox and pay it 
+                ☐ Generate Loots
+                ☐ return list of loots
+            (GET) Image:
+                ☐ get image for loot 
+            Postman:
+                ☐ Add TU for each route in one folder
+                ☐ Add TI in second folder

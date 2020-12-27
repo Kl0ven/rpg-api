@@ -3,7 +3,7 @@ FROM python:3.8-slim
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-RUN apt-get update && apt-get install -y libpq-dev python-dev
+RUN apt-get update && apt-get install -y libpq-dev python-dev libcairo2
 RUN apt-get install -y --no-install-recommends gcc 
 
 COPY requirements.txt /usr/src/app/

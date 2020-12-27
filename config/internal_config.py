@@ -43,5 +43,8 @@ INTERNAL_CONFIG = {
     "rarety": list(RARETY.keys()),
     "complexity_range": COMPLEXITY_RANGE,
     "loot_type" : LOOT_TYPE,
-    "loot_generator": LOOT_GENERATOR
+    "loot_generator": LOOT_GENERATOR,
+    "image_dimension": 64,
+    "image_render_scale": 2,
+    "image_output_directory": "/usr/src/app/images/"
 }
