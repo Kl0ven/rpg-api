@@ -15,11 +15,13 @@ class Lootbox(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, name: str=None, slot: int=None, rarety: LootboxRarety=None):  # noqa: E501
+    def __init__(self, name: str=None, price: float=None, slot: int=None, rarety: LootboxRarety=None):  # noqa: E501
         """Lootbox - a model defined in Swagger
 
         :param name: The name of this Lootbox.  # noqa: E501
         :type name: str
+        :param price: The price of this Lootbox.  # noqa: E501
+        :type price: float
         :param slot: The slot of this Lootbox.  # noqa: E501
         :type slot: int
         :param rarety: The rarety of this Lootbox.  # noqa: E501
@@ -27,16 +29,19 @@ class Lootbox(Model):
         """
         self.swagger_types = {
             'name': str,
+            'price': float,
             'slot': int,
             'rarety': LootboxRarety
         }
 
         self.attribute_map = {
             'name': 'name',
+            'price': 'price',
             'slot': 'slot',
             'rarety': 'rarety'
         }
         self._name = name
+        self._price = price
         self._slot = slot
         self._rarety = rarety
 
@@ -71,6 +76,27 @@ class Lootbox(Model):
         """
 
         self._name = name
+
+    @property
+    def price(self) -> float:
+        """Gets the price of this Lootbox.
+
+
+        :return: The price of this Lootbox.
+        :rtype: float
+        """
+        return self._price
+
+    @price.setter
+    def price(self, price: float):
+        """Sets the price of this Lootbox.
+
+
+        :param price: The price of this Lootbox.
+        :type price: float
+        """
+
+        self._price = price
 
     @property
     def slot(self) -> int:

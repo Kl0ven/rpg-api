@@ -30,10 +30,10 @@ def get_inventory(user):  # noqa: E501
     lootboxes = Lootbox.select().where(inv.id == Lootbox.inventory)
     for lb in lootboxes:
         lbr = LootboxRarety(value=lb.rarety, name=CONFIG["invert_lootboxes_rarety"][lb.rarety])
-        items.append(Lootbox_swagger(name=lb.name, slot=lb.slot, rarety=lbr))
+        items.append(Lootbox_swagger(name=lb.name, price=CONFIG['lootbox_price'][lbr.name], slot=lb.slot, rarety=lbr))
 
     loots = Loot.select().where(inv.id == Loot.inventory)
     for l in loots:
         lbt = LootboxRarety(value=l.type, name=CONFIG["invert_loot_type"][l.type])
-        items.append(Loot_swagger(name=l.name, slot=l.slot, type=lbt))
+        items.append(Loot_swagger(name=l.name, slot=l.slot, type=lbt, image_url=l.image_url))
     return items

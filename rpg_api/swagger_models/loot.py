@@ -15,29 +15,34 @@ class Loot(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, name: str=None, slot: int=None, type: LootboxRarety=None):  # noqa: E501
+    def __init__(self, name: str=None, slot: int=None, image_url: str=None, type: LootboxRarety=None):  # noqa: E501
         """Loot - a model defined in Swagger
 
         :param name: The name of this Loot.  # noqa: E501
         :type name: str
         :param slot: The slot of this Loot.  # noqa: E501
         :type slot: int
+        :param image_url: The image_url of this Loot.  # noqa: E501
+        :type image_url: str
         :param type: The type of this Loot.  # noqa: E501
         :type type: LootboxRarety
         """
         self.swagger_types = {
             'name': str,
             'slot': int,
+            'image_url': str,
             'type': LootboxRarety
         }
 
         self.attribute_map = {
             'name': 'name',
             'slot': 'slot',
+            'image_url': 'image_url',
             'type': 'type'
         }
         self._name = name
         self._slot = slot
+        self._image_url = image_url
         self._type = type
 
     @classmethod
@@ -92,6 +97,27 @@ class Loot(Model):
         """
 
         self._slot = slot
+
+    @property
+    def image_url(self) -> str:
+        """Gets the image_url of this Loot.
+
+
+        :return: The image_url of this Loot.
+        :rtype: str
+        """
+        return self._image_url
+
+    @image_url.setter
+    def image_url(self, image_url: str):
+        """Sets the image_url of this Loot.
+
+
+        :param image_url: The image_url of this Loot.
+        :type image_url: str
+        """
+
+        self._image_url = image_url
 
     @property
     def type(self) -> LootboxRarety:
