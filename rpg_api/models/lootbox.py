@@ -15,11 +15,15 @@ class Lootbox(Item):
         return {
             "name": self.name,
             "slot": self.slot,
+            "price": CONFIG['lootbox_price'][self.get_rarety_name()],
             "rarety": {
                 "value": self.rarety,
                 "name": self.get_rarety_name()
             }
         }
+
+    def get_price(self):
+        return CONFIG['lootbox_price'][self.get_rarety_name()]
 
     class Meta:
         db_table = "lootboxes"

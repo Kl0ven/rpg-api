@@ -7,9 +7,9 @@ RPG API:
                 ✔ Add ability to configutre starting LootBoxes @done(20-12-25 22:53)
                 ✔ Add Route @done(20-12-25 22:53)
             (POST) open_lootbox:
-                ☐ Add route
-                ☐ Remove lootbox and pay it 
-                ☐ Generate Loots
+                ✔ Add route @done(20-12-28 00:38)
+                ✔ Remove lootbox and pay it @done(20-12-28 00:38)
+                ✔ Generate Loots @done(20-12-28 00:38)
                 ☐ return list of loots
             (GET) Image:
                 ☐ get image for loot 

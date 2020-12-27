@@ -30,6 +30,7 @@ def open_lootbox(user, slot):  # noqa: E501
     with database.database.atomic():
         inv = g.user.inventory[0]
         lootbox = get_object_or_404(Lootbox.select().where(inv.id == Lootbox.inventory), Lootbox.slot == slot)
+        inv.open_lootbox(lootbox)
         lootbox_rarety_name = lootbox.get_rarety_name()
         loot_range = CONFIG["lootbox_size_range"][lootbox_rarety_name]
         for i in range(random.randrange(*loot_range)):

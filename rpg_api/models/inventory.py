@@ -21,5 +21,10 @@ class Inventory(database.Model, peewee_signals.Model):
                 CONFIG["invert_lootboxes_rarety"][item.rarety].capitalize())
         self.save()
         item.save()
+
+    def open_lootbox(self, lootbox):
+        self.user.balance -= lootbox.get_price()
+        self.user.save()
+        lootbox.delete_instance()
     class Meta:
         db_table = "inventories"

@@ -68,9 +68,10 @@
 							"\r",
 							"\r",
 							"pm.test(\"Inventory equal to 3 lootboxes\", function () {\r",
-							"    pm.response.to.have.jsonBody([\r",
+							"    pm.expect(pm.response.json()).to.deep.equal([\r",
 							"        {\r",
 							"            \"name\": \"Common Lootbox\",\r",
+							"            \"price\": 100,\r",
 							"            \"rarety\": {\r",
 							"                \"name\": \"common\",\r",
 							"                \"value\": 0\r",
@@ -79,6 +80,7 @@
 							"        },\r",
 							"        {\r",
 							"            \"name\": \"Common Lootbox\",\r",
+							"            \"price\": 100,\r",
 							"            \"rarety\": {\r",
 							"                \"name\": \"common\",\r",
 							"                \"value\": 0\r",
@@ -87,6 +89,7 @@
 							"        },\r",
 							"        {\r",
 							"            \"name\": \"Common Lootbox\",\r",
+							"            \"price\": 100,\r",
 							"            \"rarety\": {\r",
 							"                \"name\": \"common\",\r",
 							"                \"value\": 0\r",
@@ -125,6 +128,27 @@
 					"path": [
 						"inventory",
 						"Kloven"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "open_lootbox",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://{{HOST}}:{{PORT}}/open_lootbox/Kloven/1",
+					"protocol": "http",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"open_lootbox",
+						"Kloven",
+						"1"
 					]
 				}
 			},
