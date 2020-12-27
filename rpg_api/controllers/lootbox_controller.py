@@ -9,7 +9,6 @@ from playhouse.flask_utils import get_object_or_404
 from coolname.loader import load_config
 
 from config import CONFIG
-from rpg_api.swagger_models.inventory import Inventory  # noqa: E501
 from rpg_api import util
 from rpg_api.models import database
 from rpg_api.models.lootbox import Lootbox

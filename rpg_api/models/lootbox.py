@@ -10,5 +10,16 @@ class Lootbox(Item):
 
     def get_rarety_name(self):
         return CONFIG['invert_lootboxes_rarety'][self.rarety]
+
+    def to_dict(self):
+        return {
+            "name": self.name,
+            "slot": self.slot,
+            "rarety": {
+                "value": self.rarety,
+                "name": self.get_rarety_name()
+            }
+        }
+
     class Meta:
         db_table = "lootboxes"

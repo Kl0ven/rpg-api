@@ -6,7 +6,6 @@ import sys
 import connexion
 import os
 import config
-from rpg_api import encoder
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -16,7 +15,6 @@ APP_NAME = "RPG_API"
 
 options = {"swagger_ui": mode != "PRODUCTION"}
 app = connexion.App(APP_NAME, specification_dir='rpg_api/swagger/', options=options)
-app.app.json_encoder = encoder.JSONEncoder
 flask_app = app.app
 
 
@@ -42,6 +40,10 @@ init_models(flask_app)
 
 # adding api last to sort import 
 app.add_api('swagger.yaml', arguments={'title': 'RPG API'}, pythonic_params=True)
+
+# adding json encoder
+from rpg_api import encoder
+flask_app.json_encoder = encoder.JSONEncoder
 
 # get user before each request
 @flask_app.before_request
