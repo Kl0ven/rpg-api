@@ -4,7 +4,7 @@ servers:
   description: Local server 
 info:
   description: Simple API to play RPG ⚔
-  version: 1.0.0
+  version: 0.1.0
   title: RPG API
   contact:
     email: jloup.m@gmail.com
