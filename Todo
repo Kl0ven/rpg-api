@@ -1,0 +1,23 @@
+RPG API:
+    Features:
+        0.1.0:
+            (GET) Balance:
+                ✔ remove Get prefix as it's in the Verbe @done(20-12-24 18:07)
+            (GET) Inventory:
+                ✔ Add ability to configutre starting LootBoxes @done(20-12-25 22:53)
+                ✔ Add Route @done(20-12-25 22:53)
+            (POST) open_lootbox:
+                ✔ Add route @done(20-12-28 00:38)
+                ✔ Remove lootbox and pay it @done(20-12-28 00:38)
+                ✔ Generate Loots @done(20-12-28 00:38)
+                ✔ Does the user have enough money ? @done(20-12-28 18:29)
+                ✔ return list of loots @done(20-12-28 18:39)
+            (GET) Image:
+                ✔ get image for loot @done(20-12-28 20:09)
+            Postman:
+                ✔ Add TU for each route in one folder @done(20-12-28 20:43)
+                ✔ Add TI in second folder @done(20-12-28 20:43)
+            Update README:
+                ✔ swagger UI @done(20-12-28 18:54)
+                ✔ Configuration @done(20-12-28 21:06)
+                ✔ Database connection @done(20-12-28 21:06)

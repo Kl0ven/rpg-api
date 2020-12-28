@@ -16,6 +16,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
+          sudo apt-get install -y libcairo2
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
           if [ -f requirements-dev.txt ]; then pip install -r requirements-dev.txt; fi
@@ -29,14 +30,22 @@ jobs:
         run: npm install newman
 
       - name: Run API in Background
+        env:
+          MODE: CI
         run: |
-          python -m rpg_api &
+          python -m rpg_api > debug.log &
           sleep 10
 
       - name: Test with newman
         run: |
-          cd rpg_api/test
-          newman run rpg_api_collection.postman_collection.json -e rpg_api.postman_environment.json 
+          newman run rpg_api/test/rpg_api_collection.postman_collection.json -e rpg_api/test/rpg_api.postman_environment.json 
+      
+      - name: archive logs
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: logs
+          path: debug.log
 
   build-n-publish:
     name: Build and publish To Docker Hub 🐳

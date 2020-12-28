@@ -1,142 +1,184 @@
 openapi: 3.0.0
+servers:
+- url: https://localhost:8080
+  description: Local server 
 info:
-  title: RPG API
   description: Simple API to play RPG ⚔
+  version: 0.1.0
+  title: RPG API
   contact:
     email: jloup.m@gmail.com
   license:
     name: MIT License
-    url: http://opensource.org/licenses/MIT
-  version: 0.0.1
-servers:
-- url: https://localhost:8080
-  description: Local server 
+    url: 'http://opensource.org/licenses/MIT'
 tags:
-- name: admins
-  description: Secured Admin-only calls
-- name: developers
-  description: Operations available to regular developers
+  - name: Information
+    description: All possible informations
+  - name: Action
+    description: All possible actions 
 paths:
-  /inventory:
+  /balance/{user}:
     get:
       tags:
-      - developers
-      summary: searches inventory
+        - Information
+      summary: Get balance information for a specific user
+      operationId: get_balance
       description: |
-        By passing in the appropriate options, you can search for
-        available inventory in the system
-      operationId: search_inventory
+        Return the balance of a specific user 
       parameters:
-      - name: searchString
-        in: query
-        description: pass an optional search string for looking up inventory
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: string
-      - name: skip
-        in: query
-        description: number of records to skip for pagination
-        required: false
-        style: form
-        explode: true
-        schema:
-          minimum: 0
-          type: integer
-          format: int32
-      - name: limit
-        in: query
-        description: maximum number of records to return
-        required: false
-        style: form
-        explode: true
-        schema:
-          maximum: 50
-          minimum: 0
-          type: integer
-          format: int32
+        - in: path
+          name: user
+          description: the username of the user
+          required: true
+          schema:
+            type: string
       responses:
-        "200":
-          description: search results matching criteria
+        '200':
+          description: Balance information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/balance'
+        '400':
+          description: bad input parameter
+      x-openapi-router-controller: rpg_api.controllers.balance_controller
+  /inventory/{user}:
+    get:
+        tags:
+          - Information
+        summary: Get inventroy information for a specific user
+        operationId: get_inventory
+        description: |
+          Return the inventory of a specific user 
+        parameters:
+          - in: path
+            name: user
+            description: the username of the user
+            required: true
+            schema:
+              type: string
+        responses:
+          '200':
+            description: Inventory information
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/inventory'
+          '400':
+            description: bad input parameter
+        x-openapi-router-controller: rpg_api.controllers.inventory_controller
+  /image/{user}/{slot}:
+    get:
+      tags:
+        - Information
+      summary: Get Image for a specific loot (slot) for a user
+      operationId: get_image
+      description: |
+        Return Image for a specific loot (slot) for a user
+      parameters:
+        - in: path
+          name: user
+          description: the username of the user
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: slot
+          description: the slot of the loot
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Loot image in PNG format
+          content:
+            image/png:
+              schema:
+                type: string
+                format: binary
+        '400':
+          description: bad input parameter
+      x-openapi-router-controller: rpg_api.controllers.image_controller
+  /open_lootbox/{user}:
+    post:
+      tags:
+        - Action
+      summary: Open lootbox from user wich is at slot
+      operationId: open_lootbox
+      description: |
+        Open the lootbox from user wich is at slot in inventory
+      parameters:
+        - in: path
+          name: user
+          description: the username of the user
+          required: true
+          schema:
+            type: string
+      requestBody:
+          description: the slot(s) of the lootbox(es)
+          required: true
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/InventoryItem'
-                x-content-type: application/json
-        "400":
-          description: bad input parameter
-      x-openapi-router-controller: rpg_api.controllers.developers_controller
-    post:
-      tags:
-      - admins
-      summary: adds an inventory item
-      description: Adds an item to the system
-      operationId: add_inventory
-      requestBody:
-        description: Inventory item to add
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/InventoryItem'
+                  type: integer
       responses:
-        "201":
-          description: item created
-        "400":
-          description: invalid input, object invalid
-        "409":
-          description: an existing item already exists
-      x-openapi-router-controller: rpg_api.controllers.admins_controller
+        '200':
+          description: Loots
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inventory'
+        '400':
+          description: bad input parameter
+        '412':
+          description: Not enough money
+      x-openapi-router-controller: rpg_api.controllers.lootbox_controller
 components:
   schemas:
-    InventoryItem:
-      required:
-      - id
-      - manufacturer
-      - name
-      - releaseDate
+    balance:
       type: object
       properties:
-        id:
-          type: string
-          format: uuid
-          example: d290f1ee-6c54-4b01-90e6-d701748f0851
-        name:
-          type: string
-          example: Widget Adapter
-        releaseDate:
-          type: string
-          format: date-time
-          example: 2016-08-29T09:12:33.001Z
-        manufacturer:
-          $ref: '#/components/schemas/Manufacturer'
+        balance:
+          type: number
       example:
-        releaseDate: 2016-08-29T09:12:33.001Z
-        name: Widget Adapter
-        id: d290f1ee-6c54-4b01-90e6-d701748f0851
-        manufacturer:
-          phone: 408-867-5309
-          name: ACME Corporation
-          homePage: https://www.acme-corp.com
-    Manufacturer:
-      required:
-      - name
+        balance: 300
+    inventory:
+      type: array
+      items:
+        oneOf:
+          - $ref: '#/components/schemas/lootbox'
+          - $ref: '#/components/schemas/loot'
+    lootbox:
       type: object
       properties:
-        name:
+        name: 
           type: string
-          example: ACME Corporation
-        homePage:
+        price:
+          type: number
+        slot:
+          type: integer
+        rarety:
+          type: object
+          properties:
+            name:
+              type: string
+            value:
+              type: integer
+    loot:
+      type: object
+      properties:
+        name: 
           type: string
-          format: url
-          example: https://www.acme-corp.com
-        phone:
+        slot:
+          type: integer
+        image_url:
           type: string
-          example: 408-867-5309
-      example:
-        phone: 408-867-5309
-        name: ACME Corporation
-        homePage: https://www.acme-corp.com
-
+        type:
+          type: object
+          properties:
+            name:
+              type: string
+            value:
+              type: integer

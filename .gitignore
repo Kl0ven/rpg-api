@@ -122,3 +122,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
+rpg_api/test/CI.db
+images/*
+!images/.gitkeep 
