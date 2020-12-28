@@ -13,10 +13,11 @@ RPG API:
                 ✔ Does the user have enough money ? @done(20-12-28 18:29)
                 ✔ return list of loots @done(20-12-28 18:39)
             (GET) Image:
-                ☐ get image for loot 
+                ✔ get image for loot @done(20-12-28 20:09)
             Postman:
-                ☐ Add TU for each route in one folder
-                ☐ Add TI in second folder
+                ✔ Add TU for each route in one folder @done(20-12-28 20:43)
+                ✔ Add TI in second folder @done(20-12-28 20:43)
             Update README:
                 ✔ swagger UI @done(20-12-28 18:54)
-                ☐ Configuration 
+                ✔ Configuration @done(20-12-28 21:06)
+                ✔ Database connection @done(20-12-28 21:06)

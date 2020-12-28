@@ -12,6 +12,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"postman.setNextRequest(\"get inventory\");\r",
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200)\r",
 							"})\r",
@@ -19,7 +20,8 @@
 							"\r",
 							"pm.test(\"Balance is 500\", function () {\r",
 							"    pm.response.to.have.body({\"balance\": 500.0})\r",
-							"})"
+							"})\r",
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -62,6 +64,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"postman.setNextRequest(\"open_lootbox\");\r",
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200)\r",
 							"})\r",
@@ -135,11 +138,45 @@
 		},
 		{
 			"name": "open_lootbox",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"postman.setNextRequest(\"get image\");\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"\r",
+							"pm.test(\"Lootboxes have been opened\", function () {\r",
+							"    res = pm.response.json()\r",
+							"    pm.expect(res.length).to.be.above(0)\r",
+							"    slots = res.map(x => x.slot)\r",
+							"    pm.environment.set('slots', slots)\r",
+							"    pm.environment.set('slot', slots[0])\r",
+							"    pm.environment.set('slot_i', 0)\r",
+							"    \r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[1, 2, 3]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://{{HOST}}:{{PORT}}/open_lootbox/Kloven/1",
+					"raw": "http://{{HOST}}:{{PORT}}/open_lootbox/Kloven",
 					"protocol": "http",
 					"host": [
 						"{{HOST}}"
@@ -147,8 +184,50 @@
 					"port": "{{PORT}}",
 					"path": [
 						"open_lootbox",
+						"Kloven"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get image",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"    slot_i = pm.environment.get(\"slot_i\") + 1\r",
+							"    slots =  pm.environment.get(\"slots\")\r",
+							"    if( slot_i < slots.length ) {\r",
+							"        pm.environment.set('slot', slots[slot_i])\r",
+							"        pm.environment.set('slot_i', slot_i)\r",
+							"        postman.setNextRequest(\"get image\");\r",
+							"    }\r",
+							"    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{HOST}}:{{PORT}}/image/Kloven/{{slot}}",
+					"protocol": "http",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"image",
 						"Kloven",
-						"1"
+						"{{slot}}"
 					]
 				}
 			},

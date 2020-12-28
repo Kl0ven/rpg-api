@@ -66,9 +66,39 @@ paths:
                   $ref: '#/components/schemas/inventory'
           '400':
             description: bad input parameter
-          '412':
-            description: Not enough money
         x-openapi-router-controller: rpg_api.controllers.inventory_controller
+  /image/{user}/{slot}:
+    get:
+      tags:
+        - Information
+      summary: Get Image for a specific loot (slot) for a user
+      operationId: get_image
+      description: |
+        Return Image for a specific loot (slot) for a user
+      parameters:
+        - in: path
+          name: user
+          description: the username of the user
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: slot
+          description: the slot of the loot
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Loot image in PNG format
+          content:
+            image/png:
+              schema:
+                type: string
+                format: binary
+        '400':
+          description: bad input parameter
+      x-openapi-router-controller: rpg_api.controllers.image_controller
   /open_lootbox/{user}:
     post:
       tags:
@@ -102,6 +132,8 @@ paths:
                 $ref: '#/components/schemas/inventory'
         '400':
           description: bad input parameter
+        '412':
+          description: Not enough money
       x-openapi-router-controller: rpg_api.controllers.lootbox_controller
 components:
   schemas:

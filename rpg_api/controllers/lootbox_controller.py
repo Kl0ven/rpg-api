@@ -9,6 +9,7 @@ from datetime import datetime
 from coolname import RandomGenerator
 from playhouse.flask_utils import get_object_or_404
 from coolname.loader import load_config
+import hashlib
 
 from config import CONFIG
 from rpg_api import util
@@ -50,7 +51,8 @@ def open_lootbox(body, user):  # noqa: E501
                 loot_complexity = random.randrange(*CONFIG["complexity_range"][loot_rarety[0]])
                 loot_type = random.choice(list(CONFIG["loot_type"].keys()))
                 loot_generator = CONFIG['loot_generator'][loot_type]()
-                seed = datetime.now()
+                seed = hashlib.md5(str(datetime.now()).encode('utf-8')).hexdigest()
+
                 loot_generator.generate(
                     seed=seed, 
                     dimension=CONFIG["image_dimension"], 
@@ -63,7 +65,7 @@ def open_lootbox(body, user):  # noqa: E501
                 loot = Loot(
                     type=CONFIG['loot_type'][loot_type], 
                     name=loot_name,
-                    image_url=seed)
+                    image_url="{}.png".format(seed))
                 inv.add_item(loot)
                 loots.append(loot)
     return loots
