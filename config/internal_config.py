@@ -1,4 +1,5 @@
 from rpg_icon_generator import Blade_Generator, Potion_Generator, Axe_Generator, Armor_Generator, Hammer_Generator
+import os
 
 RARETY = {
     "common": 0,
@@ -46,5 +47,5 @@ INTERNAL_CONFIG = {
     "loot_generator": LOOT_GENERATOR,
     "image_dimension": 64,
     "image_render_scale": 2,
-    "image_output_directory": "/usr/src/app/images/"
+    "image_output_directory": os.path.normpath(os.path.join(os.getcwd(), "images/"))
 }
