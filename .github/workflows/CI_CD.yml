@@ -40,7 +40,9 @@ jobs:
         run: |
           newman run rpg_api/test/rpg_api_collection.postman_collection.json -e rpg_api/test/rpg_api.postman_environment.json 
       
-      - uses: actions/upload-artifact@v2
+      - name: archive logs
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v2
         with:
           name: logs
           path: debug.log
