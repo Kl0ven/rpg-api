@@ -17,4 +17,6 @@ RPG API:
             Postman:
                 ☐ Add TU for each route in one folder
                 ☐ Add TI in second folder
-            ☐ Update README
+            Update README:
+                ✔ swagger UI @done(20-12-28 18:54)
+                ☐ Configuration 
