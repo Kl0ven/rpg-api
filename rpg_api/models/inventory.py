@@ -23,8 +23,13 @@ class Inventory(database.Model, peewee_signals.Model):
         item.save()
 
     def open_lootbox(self, lootbox):
-        self.user.balance -= lootbox.get_price()
-        self.user.save()
-        lootbox.delete_instance()
+        lootbox_price = lootbox.get_price()
+        if self.user.balance >= lootbox_price: 
+            self.user.balance -= lootbox_price
+            self.user.save()
+            lootbox.delete_instance()
+            return True
+        else:
+            return False
     class Meta:
         db_table = "inventories"

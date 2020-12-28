@@ -66,8 +66,10 @@ paths:
                   $ref: '#/components/schemas/inventory'
           '400':
             description: bad input parameter
+          '412':
+            description: Not enough money
         x-openapi-router-controller: rpg_api.controllers.inventory_controller
-  /open_lootbox/{user}/{slot}:
+  /open_lootbox/{user}:
     post:
       tags:
         - Action
@@ -82,12 +84,15 @@ paths:
           required: true
           schema:
             type: string
-        - in: path
-          name: slot
-          description: the slot of the lootbox
+      requestBody:
+          description: the slot(s) of the lootbox(es)
           required: true
-          schema:
-            type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: integer
       responses:
         '200':
           description: Loots

@@ -16,7 +16,6 @@ class Loot(Item):
         return {
             "name": self.name,
             "slot": self.slot,
-            "image_url": self.image_url,
             "type": {
                 "value": self.type,
                 "name": self.get_type_name()

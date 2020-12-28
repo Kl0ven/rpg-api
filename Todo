@@ -10,9 +10,11 @@ RPG API:
                 ✔ Add route @done(20-12-28 00:38)
                 ✔ Remove lootbox and pay it @done(20-12-28 00:38)
                 ✔ Generate Loots @done(20-12-28 00:38)
-                ☐ return list of loots
+                ✔ Does the user have enough money ? @done(20-12-28 18:29)
+                ✔ return list of loots @done(20-12-28 18:39)
             (GET) Image:
                 ☐ get image for loot 
             Postman:
                 ☐ Add TU for each route in one folder
                 ☐ Add TI in second folder
+            ☐ Update README
