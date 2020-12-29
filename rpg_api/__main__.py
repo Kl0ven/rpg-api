@@ -7,10 +7,11 @@ import connexion
 import os
 import config
 from dotenv import load_dotenv
+from rpg_api.debugger import initialize_flask_server_debugger_if_needed
 
 load_dotenv()
 mode = os.environ.get('MODE')
-
+initialize_flask_server_debugger_if_needed(mode)
 APP_NAME = "RPG_API"
 
 options = {"swagger_ui": mode != "PRODUCTION"}
