@@ -71,7 +71,8 @@
 							"\r",
 							"\r",
 							"pm.test(\"Inventory equal to 3 lootboxes\", function () {\r",
-							"    pm.expect(pm.response.json()).to.deep.equal([\r",
+							"    pm.expect(pm.response.json()).to.deep.equal({\r",
+							"    \"lootboxes\": [\r",
 							"        {\r",
 							"            \"name\": \"Common Lootbox\",\r",
 							"            \"price\": 100,\r",
@@ -99,7 +100,9 @@
 							"            },\r",
 							"            \"slot\": 3\r",
 							"        }\r",
-							"    ])\r",
+							"    ],\r",
+							"    \"loots\": []\r",
+							"})\r",
 							"})"
 						],
 						"type": "text/javascript"
