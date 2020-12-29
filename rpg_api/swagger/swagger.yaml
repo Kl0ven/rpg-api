@@ -145,11 +145,16 @@ components:
       example:
         balance: 300
     inventory:
-      type: array
-      items:
-        oneOf:
-          - $ref: '#/components/schemas/lootbox'
-          - $ref: '#/components/schemas/loot'
+      type: object
+      properties:
+        lootboxes:
+          type: array
+          items:
+            $ref: '#/components/schemas/lootbox'
+        loots:
+          type: array
+          items:
+            $ref: '#/components/schemas/loot'
     lootbox:
       type: object
       properties:
