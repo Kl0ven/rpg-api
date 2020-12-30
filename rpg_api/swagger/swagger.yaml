@@ -187,3 +187,10 @@ components:
               type: string
             value:
               type: integer
+        rarety:
+          type: object
+          properties:
+            name:
+              type: string
+            value:
+              type: integer

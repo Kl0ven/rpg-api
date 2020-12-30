@@ -65,7 +65,8 @@ def open_lootbox(body, user):  # noqa: E501
                 loot = Loot(
                     type=CONFIG['loot_type'][loot_type], 
                     name=loot_name,
-                    image_url="{}.png".format(seed))
+                    image_url="{}.png".format(seed),
+                    rarety=CONFIG['lootboxes_rarety'][loot_rarety[0]])
                 inv.add_item(loot)
                 loots.append(loot)
     return loots

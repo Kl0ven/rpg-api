@@ -16,6 +16,8 @@ COPY . /usr/src/app
 
 RUN apt-get purge -y --auto-remove gcc
 
+VOLUME [ "/usr/src/app/images" ]
+
 EXPOSE 8080
 ENV MODE=PRODUCTION
 
