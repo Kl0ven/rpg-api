@@ -24,7 +24,7 @@ def get_image(user, slot):  # noqa: E501
     """
     inv = g.user.inventory[0]
     loot = None
-    query = Loot.select().where(inv.id == Loot.inventory and Loot.slot == slot)
+    query = Loot.select().where(inv.id == Loot.inventory, Loot.slot == slot)
     if query.exists():
         loot = query.get()
     else:
