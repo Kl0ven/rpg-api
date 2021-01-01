@@ -7,6 +7,13 @@ from config import CONFIG
 class Inventory(database.Model, peewee_signals.Model):
     user = peewee.ForeignKeyField(User, backref='inventory')
     next_slot = peewee.IntegerField(default=1)
+    loot_model = None
+    lootbox_model = None
+
+    @classmethod
+    def set_models(cls, models):
+        cls.loot_model = models['Loot']
+        cls.lootbox_model = models['Lootbox']
 
     def __unicode__(self):
         return "{} Inventory".format(self.user)
@@ -31,5 +38,11 @@ class Inventory(database.Model, peewee_signals.Model):
             return True
         else:
             return False
+    
+    def get_loots(self):
+        return list(self.loot_set.select().order_by(self.loot_model.rarety.desc()))
+
+    def get_lootboxes(self):
+        return list(self.lootbox_set.select().order_by(self.lootbox_model.rarety.desc()))
     class Meta:
         db_table = "inventories"

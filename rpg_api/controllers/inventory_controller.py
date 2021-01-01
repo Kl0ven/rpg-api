@@ -22,14 +22,5 @@ def get_inventory(user):  # noqa: E501
     :rtype: Inventory
     """
     inv = g.user.inventory[0]
-    lootboxes_items = []
-    lootboxes = Lootbox.select().where(inv.id == Lootbox.inventory)
-    for lb in lootboxes:
-        lootboxes_items.append(lb)
 
-    loot_items = []
-    loots = Loot.select().where(inv.id == Loot.inventory)
-    for l in loots:
-        loot_items.append(l)
-        
-    return {"loots": loot_items, "lootboxes": lootboxes_items}
+    return {"loots": inv.get_loots(), "lootboxes": inv.get_lootboxes()}
