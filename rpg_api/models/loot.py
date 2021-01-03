@@ -6,6 +6,7 @@ class Loot(Item):
     type = peewee.IntegerField()
     image_url = peewee.TextField()
     rarety = peewee.IntegerField()
+    selected = peewee.BooleanField(default=False)
 
     def __unicode__(self):
         return self.name

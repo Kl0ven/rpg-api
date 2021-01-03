@@ -24,5 +24,7 @@ DEFAULT_CONFIG = {
         "rare": [0.1, 0.1, 0.7, 0.1, 0],
         "epic": [0.05, 0.05, 0.1, 0.7, 0.1],
         "outstanding": [0.05, 0.05, 0.05, 0.2, 0.65]
-    }
+    },
+    # max hero health
+    "max_health": 100
 }

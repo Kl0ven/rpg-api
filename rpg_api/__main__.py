@@ -33,7 +33,7 @@ config.load_config()
 from config import CONFIG
 
 # DB
-from rpg_api.models import database, init_models, User, Inventory, Lootbox
+from rpg_api.models import database, init_models, User, Inventory, Lootbox, Health
 db_url = 'sqlite:///rpg_api/test/CI.db' if mode == "CI" else os.environ.get('DATABASE_URL')
 flask_app.config['DATABASE'] = db_url
 database.init_app(flask_app)
@@ -54,8 +54,11 @@ def get_or_create_user():
     query = User.select().where(User.name == username)
     if query.exists():
         user = query.get()
+        user.update_status()
+        user.update_health()
     else:
         user = User.create(name=username)
+        Health.create(user=user)
         i = Inventory.create(user=user)
         for _ in range(CONFIG["start_lootboxes"]):
             i.add_item(Lootbox(rarety=CONFIG["lootboxes_rarety"]["common"]))

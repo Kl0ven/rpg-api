@@ -1,10 +1,11 @@
 openapi: 3.0.0
 servers:
+# Added by API Auto Mocking Plugin
 - url: https://localhost:8080
   description: Local server 
 info:
   description: Simple API to play RPG ⚔
-  version: 0.1.0
+  version: 0.2.0
   title: RPG API
   contact:
     email: jloup.m@gmail.com
@@ -17,6 +18,32 @@ tags:
   - name: Action
     description: All possible actions 
 paths:
+
+  /hero/{user}:
+      get:
+        tags:
+          - Information
+        summary: Get hero information for a specific user
+        operationId: get_hero
+        description: |
+          Return the hero  of a specific user 
+        parameters:
+          - in: path
+            name: user
+            description: the username of the user
+            required: true
+            schema:
+              type: string
+        responses:
+          '200':
+            description: Hero information
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/hero'
+          '400':
+            description: bad input parameter
+        x-openapi-router-controller: rpg_api.controllers.hero_controller
   /balance/{user}:
     get:
       tags:
@@ -132,11 +159,67 @@ paths:
                 $ref: '#/components/schemas/inventory'
         '400':
           description: bad input parameter
+        '404':
+          description: Loot not found
         '412':
           description: Not enough money
       x-openapi-router-controller: rpg_api.controllers.lootbox_controller
+  /select_loot/{user}:
+    post:
+      tags:
+        - Action
+      summary: Select Loot from user wich is at slot
+      operationId: select_loot
+      description: |
+        select the Loot(s) from user wich is at slot in inventory
+      parameters:
+        - in: path
+          name: user
+          description: the username of the user
+          required: true
+          schema:
+            type: string
+      requestBody:
+          description: the slot(s) of the loot(s)
+          required: true
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: integer
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: bad input parameter
+        '404':
+          description: Loot not found
+        '412':
+          description: Incompatible selection 
+      x-openapi-router-controller: rpg_api.controllers.selection_controller
 components:
   schemas:
+    hero:
+      type: object
+      properties:
+        health:
+          type: number
+        status:
+          type: object
+          properties:
+            name:
+              type: string
+            value:
+              type: integer
+        selected_weapon:
+          $ref: '#/components/schemas/loot'
+        selected_armor:
+          $ref: '#/components/schemas/loot'
+        selected_potion:
+          type: array
+          items:
+            $ref: '#/components/schemas/loot'
     balance:
       type: object
       properties:

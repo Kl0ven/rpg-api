@@ -21,3 +21,17 @@ RPG API:
                 ✔ swagger UI @done(20-12-28 18:54)
                 ✔ Configuration @done(20-12-28 21:06)
                 ✔ Database connection @done(20-12-28 21:06)
+        0.2.0:
+            On every request :
+                ✔ update health @done(21-01-03 13:09)
+                ✔ update status @done(21-01-02 18:28)
+            Models:
+                User:
+                    ✔ health @done(21-01-02 18:01)
+                    ✔ health start, ends, start time end time @done(21-01-02 18:07)
+                    ✔ Status @done(21-01-02 18:15)
+            ✔ (GET) hero @done(21-01-03 14:04)
+            ☐ (POST) select items
+            ☐ (POST) unselect items
+            ☐ (POST) crawl dungeon
+            ☐ Update Readme

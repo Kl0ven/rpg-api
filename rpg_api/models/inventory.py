@@ -44,5 +44,23 @@ class Inventory(database.Model, peewee_signals.Model):
 
     def get_lootboxes(self):
         return list(self.lootbox_set.select().order_by(self.lootbox_model.rarety.desc()))
+
+    def get_selected_armor(self):
+        armor = self.loot_set.select().where(self.loot_model.selected == True, self.loot_model.type == CONFIG["loot_type"]["armor"])
+        if armor.exists():
+            return armor.get()
+        else:
+            return None
+
+    def get_selected_potions(self):
+        return list(self.loot_set.select().where(self.loot_model.selected == True, self.loot_model.type == CONFIG["loot_type"]["potion"]))
+
+    def get_selected_weapon(self):
+        weapon = self.loot_set.select().where(self.loot_model.selected == True, self.loot_model.type << CONFIG['weapon'])
+        if weapon.exists():
+            return weapon.get()
+        else:
+            return None
+
     class Meta:
         db_table = "inventories"

@@ -109,21 +109,9 @@
 					}
 				}
 			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"id\": \"d290f1ee-6c54-4b01-90e6-d701748f0851\",\r\n  \"name\": \"Widget Adapter\",\r\n  \"releaseDate\": \"2016-08-29T09:12:33.001Z\",\r\n  \"manufacturer\": {\r\n    \"name\": \"ACME Corporation\",\r\n    \"homePage\": \"https://www.acme-corp.com\",\r\n    \"phone\": \"408-867-5309\"\r\n  }\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
 				"url": {
 					"raw": "http://{{HOST}}:{{PORT}}/inventory/Kloven",
 					"protocol": "http",
@@ -209,6 +197,9 @@
 							"        pm.environment.set('slot_i', slot_i)\r",
 							"        postman.setNextRequest(\"get image\");\r",
 							"    }\r",
+							"    else {\r",
+							"        postman.setNextRequest(\"get inventory 2\")\r",
+							"    }\r",
 							"    \r",
 							"})\r",
 							""
@@ -231,6 +222,162 @@
 						"image",
 						"Kloven",
 						"{{slot}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get inventory 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"\r",
+							"pm.test(\"Inventory equal to N loot\", function () {\r",
+							"    res = pm.response.json()\r",
+							"    pm.expect(res.lootboxes.length).to.equal(0)\r",
+							"    pm.expect(res.loots.length).to.be.above(2)\r",
+							"    armor = res.loots.filter(l => l.type.value == 3)\r",
+							"    weapon = res.loots.filter(l => l.type.value == 0 || l.type.value == 2 || l.type.value == 4)\r",
+							"    potion = res.loots.filter(l => l.type.value == 1)\r",
+							"    loots = {\"armor\": null, \"weapon\": null, \"potion\": null}\r",
+							"    selection = []\r",
+							"    if (armor.length > 0){\r",
+							"        loots['armor'] = armor[0]\r",
+							"        selection.push(armor[0].slot)\r",
+							"    }\r",
+							"    if (weapon.length > 0){\r",
+							"        loots[\"weapon\"] = weapon[0]\r",
+							"        selection.push(weapon[0].slot)\r",
+							"    }\r",
+							"\r",
+							"    if (potion.length > 0){\r",
+							"        loots[\"potion\"] = potion[0]\r",
+							"        selection.push(potion[0].slot)\r",
+							"    }\r",
+							"    pm.environment.set(\"loots\", loots)\r",
+							"    pm.environment.set(\"loots_slots\", selection)\r",
+							"    postman.setNextRequest(\"select\")\r",
+							"\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{HOST}}:{{PORT}}/inventory/Kloven",
+					"protocol": "http",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"inventory",
+						"Kloven"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "select",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"    postman.setNextRequest(\"get hero\")\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[{{loots_slots}}]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{HOST}}:{{PORT}}/select_loot/Kloven",
+					"protocol": "http",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"select_loot",
+						"Kloven"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get hero",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"postman.setNextRequest(\"\")\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"\r",
+							"pm.test(\"Hero Has every things set\", function () {\r",
+							"    res = pm.response.json()\r",
+							"    loots = pm.environment.get(\"loots\")\r",
+							"    console.log(loots)\r",
+							"    pm.expect(res.health).to.equal(100)\r",
+							"    pm.expect(res.status).to.deep.equal({\r",
+							"            \"name\": \"Idle\",\r",
+							"            \"value\": 0\r",
+							"        })\r",
+							"    pm.expect(res.selected_armor).to.deep.equal(loots.armor)\r",
+							"    pm.expect(res.selected_weapon).to.deep.equal(loots.weapon)\r",
+							"    if (loots.potion != null){\r",
+							"        pm.expect(res.selected_potion[0]).to.deep.equal(loots.potion)\r",
+							"    }\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{HOST}}:{{PORT}}/hero/Kloven",
+					"protocol": "http",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"hero",
+						"Kloven"
 					]
 				}
 			},

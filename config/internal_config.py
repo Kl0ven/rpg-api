@@ -18,6 +18,8 @@ LOOT_TYPE = {
     "hammer": 4
 }
 
+WEAPON = [LOOT_TYPE['blade'], LOOT_TYPE["axe"], LOOT_TYPE['hammer']]
+
 LOOT_GENERATOR = {
     "blade": Blade_Generator,
     "potion": Potion_Generator,
@@ -35,6 +37,11 @@ COMPLEXITY_RANGE = {
 }
 
 
+STATUS = {
+    "Idle": 0,
+    "Crawling dugeon": 1
+}
+
 
 INTERNAL_CONFIG = {
     "lootboxes_rarety": RARETY,
@@ -47,5 +54,8 @@ INTERNAL_CONFIG = {
     "loot_generator": LOOT_GENERATOR,
     "image_dimension": 64,
     "image_render_scale": 2,
-    "image_output_directory": os.path.normpath(os.path.join(os.getcwd(), "images/"))
+    "image_output_directory": os.path.normpath(os.path.join(os.getcwd(), "images/")),
+    "status" : STATUS,
+    "invert_status": {v: k for k, v in STATUS.items()},
+    "weapon": WEAPON
 }
