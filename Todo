@@ -32,7 +32,7 @@ RPG API:
                     ✔ Status @done(21-01-02 18:15)
             ✔ (GET) hero @done(21-01-03 14:04)
             ✔ (POST) select items @done(21-01-03 18:00)
-            ☐ (POST) unselect items
+            ✔ (POST) unselect items @done(21-01-04 18:33)
             (POST) crawl dungeon:
                 ☐ Use Logger as battle report
                 ☐ Set status : crawling
