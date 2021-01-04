@@ -23,9 +23,9 @@ def select_loot(body, user):  # noqa: E501
     :rtype: None
     """
     loots = []
+    inv = g.user.inventory[0]
     with database.database.atomic() as ctx:
         for slot in body:
-            inv = g.user.inventory[0]
             loots.append(get_object_or_404(Loot.select().where(inv.id == Loot.inventory), Loot.slot == slot))
 
         res, exp = check_selection(loots)
@@ -51,8 +51,28 @@ def select_loot(body, user):  # noqa: E501
             else:
                 l.selected = True
                 l.save()
-    return ""
+    return None, 200
 
+
+def unselect_loot(body, user):  # noqa: E501
+    """UnSelect Loot from user wich is at slot
+
+    unselect the Loot(s) from user wich is at slot in inventory  # noqa: E501
+
+    :param body: the slot(s) of the loot(s)
+    :type body: List[]
+    :param user: the username of the user
+    :type user: str
+
+    :rtype: None
+    """
+    inv = g.user.inventory[0]
+    with database.database.atomic() as ctx:
+        for slot in body:
+            loot = get_object_or_404(Loot.select().where(inv.id == Loot.inventory), Loot.slot == slot)
+            loot.selected = False
+            loot.save()
+    return None, 200
 
 def check_selection(loots):
     armor = len(list(filter(lambda l: l.type == CONFIG["loot_type"]["armor"], loots)))

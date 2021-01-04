@@ -31,7 +31,36 @@ RPG API:
                     ✔ health start, ends, start time end time @done(21-01-02 18:07)
                     ✔ Status @done(21-01-02 18:15)
             ✔ (GET) hero @done(21-01-03 14:04)
-            ☐ (POST) select items
+            ✔ (POST) select items @done(21-01-03 18:00)
             ☐ (POST) unselect items
-            ☐ (POST) crawl dungeon
+            (POST) crawl dungeon:
+                ☐ Use Logger as battle report
+                ☐ Set status : crawling
+                ☐ Dungeon
+                ☐ Calc regene health
+                ☐ Calc and set End time
+                ☐ Create report
+            (GET) Report/{ID}:
+                ☐ Otp id
+                Model:
+                    ☐ ID
+                    ☐ FK to user
+                    ☐ Start date
+                    ☐ End date
+                    ☐ Battle log
+                    ☐ Is_fleeing
+                    ☐ End health
+                    ☐ Loots (as a json ?)
+                    ☐ Money
+                    ☐ Opened 
+                list all report:
+                    ☐ Can only be visible if end date passed  
+                Open a report with an id:
+                    ☐ Add money and loot to inventory 
+                    ☐ get all infos
+                    ☐ set report as opened
             ☐ Update Readme
+        
+            0.3.0:
+                ☐ Multi player fight ?
+                ☐ XP ? 

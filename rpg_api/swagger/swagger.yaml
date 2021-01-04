@@ -198,6 +198,41 @@ paths:
         '412':
           description: Incompatible selection 
       x-openapi-router-controller: rpg_api.controllers.selection_controller
+      
+  /unselect_loot/{user}:
+    post:
+      tags:
+        - Action
+      summary: Unselect Loot from user wich is at slot
+      operationId: unselect_loot
+      description: |
+        Unselect the Loot(s) from user wich is at slot in inventory
+      parameters:
+        - in: path
+          name: user
+          description: the username of the user
+          required: true
+          schema:
+            type: string
+      requestBody:
+          description: the slot(s) of the loot(s)
+          required: true
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: integer
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: bad input parameter
+        '404':
+          description: Loot not found
+        '412':
+          description: Incompatible selection 
+      x-openapi-router-controller: rpg_api.controllers.selection_controller
 components:
   schemas:
     hero:

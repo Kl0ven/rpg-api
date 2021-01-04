@@ -339,7 +339,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"postman.setNextRequest(\"\")\r",
+							"postman.setNextRequest(\"unselect\")\r",
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200)\r",
 							"})\r",
@@ -359,6 +359,97 @@
 							"    if (loots.potion != null){\r",
 							"        pm.expect(res.selected_potion[0]).to.deep.equal(loots.potion)\r",
 							"    }\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{HOST}}:{{PORT}}/hero/Kloven",
+					"protocol": "http",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"hero",
+						"Kloven"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "unselect",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"postman.setNextRequest(\"get hero empty\")\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[{{loots_slots}}]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{HOST}}:{{PORT}}/unselect_loot/Kloven",
+					"protocol": "http",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"unselect_loot",
+						"Kloven"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get hero empty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"postman.setNextRequest(\"\")\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"\r",
+							"pm.test(\"Hero Has every things set\", function () {\r",
+							"    res = pm.response.json()\r",
+							"    pm.expect(res.health).to.equal(100)\r",
+							"    pm.expect(res.status).to.deep.equal({\r",
+							"            \"name\": \"Idle\",\r",
+							"            \"value\": 0\r",
+							"        })\r",
+							"    pm.expect(res.selected_armor).to.equal(null)\r",
+							"    pm.expect(res.selected_weapon).to.equal(null)\r",
+							"    pm.expect(res.selected_potion.length).to.equal(0)\r",
 							"})"
 						],
 						"type": "text/javascript"
