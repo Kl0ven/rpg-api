@@ -26,6 +26,11 @@ handler = logging.StreamHandler(sys.stdout)
 handler.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
 flask_app.logger.addHandler(handler)
 flask_app.logger.setLevel(logging.INFO if mode == "PRODUCTION" else logging.DEBUG)
+if mode != "PRODUCTION":
+    logger = logging.getLogger('peewee')
+    logger.addHandler(logging.StreamHandler())
+    logger.setLevel(logging.DEBUG)
+
 flask_app.logger.info("Running in {} mode with {} log level".format(mode, logging.getLevelName(flask_app.logger.level)))
 
 # Config

@@ -233,6 +233,39 @@ paths:
         '412':
           description: Incompatible selection 
       x-openapi-router-controller: rpg_api.controllers.selection_controller
+
+  /crawl_dungeon/{user}:
+    post:
+      tags:
+        - Action
+      summary: Send your hero to the dungeon
+      operationId: crawl_dungeon
+      description: |
+        Send your hero to the dungeon, it will retrun with some money and lootboxes
+      parameters:
+        - in: path
+          name: user
+          description: the username of the user
+          required: true
+          schema:
+            type: string
+      requestBody:
+          description: usernames of the players you want to crawl with
+          required: true
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: bad input parameter 
+        '412':
+          description: Hero already crawling dungeon 
+      x-openapi-router-controller: rpg_api.controllers.crawl_dungeon
 components:
   schemas:
     hero:

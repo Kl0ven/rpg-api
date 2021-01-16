@@ -26,5 +26,62 @@ DEFAULT_CONFIG = {
         "outstanding": [0.05, 0.05, 0.05, 0.2, 0.65]
     },
     # max hero health
-    "max_health": 100
+    "max_health": 100,
+
+    # 0 => constant fleeing
+    # 1 => no fleeing
+    "fleeing_chance": 0.999,
+
+    # all mob possible
+    "mobs": [
+        {
+            "name": "zombie",
+            "atk": (1, 56),
+            "def": (0, 23),
+            "health": (10, 45)
+        },
+        {
+            "name": "dragon",
+            "atk": (20, 80),
+            "def": (50, 85),
+            "health": (15, 300)
+        },
+        {
+            "name": "witch",
+            "atk": (15, 75),
+            "def": (0, 56),
+            "health": (10, 50)
+        },
+        {
+            "name": "skeleton",
+            "atk": (2, 75),
+            "def": (0, 25),
+            "health": (2, 34)
+        },
+        {
+            "name": "slime",
+            "atk": (2, 30),
+            "def": (10, 45),
+            "health": (2, 50)
+        },
+        {
+            "name": "wearwolf",
+            "atk": (2, 50),
+            "def": (10, 45),
+            "health": (2, 80)
+        }
+    ],
+
+    #every "mob_increment" romms the number of mob goes up by one
+    "mob_increment": 10,
+
+    # chance of player taking a potion if it has one
+    "potion_chance": 0.2,
+
+    # crit starting point on 1d100 
+    # here crit if 1d100 > 90 
+    "crit": 90,
+
+    # crit multiplier 
+    "crit_power": 1.6
 }

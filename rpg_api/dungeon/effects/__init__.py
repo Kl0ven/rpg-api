@@ -1,0 +1,1 @@
+from rpg_api.dungeon.effects.strength import Strenght

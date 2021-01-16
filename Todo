@@ -34,10 +34,11 @@ RPG API:
             ✔ (POST) select items @done(21-01-03 18:00)
             ✔ (POST) unselect items @done(21-01-04 18:33)
             (POST) crawl dungeon:
-                ☐ Use Logger as battle report
-                ☐ Set status : crawling
-                ☐ Dungeon
+                ✔ Use Logger as battle report @done(21-01-16 13:58)
+                ✔ Dungeon @done(21-01-16 13:58)
+                ☐ Add potion Effects @started(21-01-16 13:58)
                 ☐ Calc regene health
+                ☐ Set status : crawling
                 ☐ Calc and set End time
                 ☐ Create report
             (GET) Report/{ID}:
@@ -62,5 +63,4 @@ RPG API:
             ☐ Update Readme
         
             0.3.0:
-                ☐ Multi player fight ?
                 ☐ XP ? 

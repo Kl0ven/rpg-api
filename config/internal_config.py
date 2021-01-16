@@ -1,4 +1,5 @@
 from rpg_icon_generator import Blade_Generator, Potion_Generator, Axe_Generator, Armor_Generator, Hammer_Generator
+from rpg_api.dungeon.effects import Strenght
 import os
 
 RARETY = {
@@ -42,6 +43,7 @@ STATUS = {
     "Crawling dugeon": 1
 }
 
+POTION_EFFECTS = [Strenght]
 
 INTERNAL_CONFIG = {
     "lootboxes_rarety": RARETY,
@@ -57,5 +59,6 @@ INTERNAL_CONFIG = {
     "image_output_directory": os.path.normpath(os.path.join(os.getcwd(), "images/")),
     "status" : STATUS,
     "invert_status": {v: k for k, v in STATUS.items()},
-    "weapon": WEAPON
+    "weapon": WEAPON,
+    "potion_effects": POTION_EFFECTS
 }

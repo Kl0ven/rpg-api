@@ -53,5 +53,6 @@ class User(database.Model, peewee_signals.Model):
             "selected_weapon": inv.get_selected_weapon(),
         }
 
+
     class Meta:
         db_table = "users"
