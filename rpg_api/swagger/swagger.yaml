@@ -126,6 +126,110 @@ paths:
         '400':
           description: bad input parameter
       x-openapi-router-controller: rpg_api.controllers.image_controller
+  /battle_report/{user}:
+    get:
+      tags:
+        - Information
+      summary: List all battle reports for a user
+      operationId: get_battle_reports
+      description: |
+        List all battle reports for a user; Battle reports are only visible at the end of the dungeon 
+      parameters:
+        - in: path
+          name: user
+          description: the username of the user
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of battle reference
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uuid
+                    date:
+                      type: string
+                      format: date-time
+                    new:
+                      type: boolean
+        '400':
+          description: bad input parameter
+      x-openapi-router-controller: rpg_api.controllers.battle_report_controller
+  /battle_report/{user}/{id}:
+    get:
+      tags:
+        - Information
+      summary: Get a battle reports for a user
+      operationId: get_battle_report
+      description: |
+        Get a battle reports for a user; Battle reports are only visible at the end of the dungeon 
+      parameters:
+        - in: path
+          name: user
+          description: the username of the user
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: id
+          description: id of the battle report
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: battle reference
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/battle_report'
+        '400':
+          description: bad input parameter
+        '404':
+          description: Battle report not found
+      x-openapi-router-controller: rpg_api.controllers.battle_report_controller
+  /full_report/{user}/{id}:
+    get:
+      tags:
+        - Information
+      summary: Get a full reports for a user
+      operationId: get_full_report
+      description: |
+        Get a full reports for a user; Full reports are only visible at the end of the dungeon 
+      parameters:
+        - in: path
+          name: user
+          description: the username of the user
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: id
+          description: id of the full report
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: full reference
+          content:
+            text/plain:
+              schema:
+                type: string
+        '400':
+          description: bad input parameter
+        '404':
+          description: full report not found
+      x-openapi-router-controller: rpg_api.controllers.battle_report_controller
   /open_lootbox/{user}:
     post:
       tags:
@@ -345,3 +449,31 @@ components:
               type: string
             value:
               type: integer
+    battle_report:
+      type: object
+      properties:
+        id: 
+          type: string
+          format: uuid
+        start_date:
+          type: string
+          format: date-time
+        end_date:
+          type: string
+          format: date-time
+        full_report_id:
+          type: string
+          format: uuid
+        fleeing:
+          type: boolean
+        health:
+          type: number
+        money:
+          type: number
+        lootboxes:
+          description: list of lootboxes if first time opening
+          type: array
+          items:
+            $ref: '#/components/schemas/lootbox'
+        first_opening:
+          type: boolean
