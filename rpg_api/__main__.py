@@ -26,6 +26,11 @@ handler = logging.StreamHandler(sys.stdout)
 handler.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
 flask_app.logger.addHandler(handler)
 flask_app.logger.setLevel(logging.INFO if mode == "PRODUCTION" else logging.DEBUG)
+if mode != "PRODUCTION":
+    logger = logging.getLogger('peewee')
+    logger.addHandler(logging.StreamHandler())
+    logger.setLevel(logging.DEBUG)
+
 flask_app.logger.info("Running in {} mode with {} log level".format(mode, logging.getLevelName(flask_app.logger.level)))
 
 # Config
@@ -33,7 +38,7 @@ config.load_config()
 from config import CONFIG
 
 # DB
-from rpg_api.models import database, init_models, User, Inventory, Lootbox
+from rpg_api.models import database, init_models, User, Inventory, Lootbox, Health
 db_url = 'sqlite:///rpg_api/test/CI.db' if mode == "CI" else os.environ.get('DATABASE_URL')
 flask_app.config['DATABASE'] = db_url
 database.init_app(flask_app)
@@ -51,11 +56,16 @@ flask_app.json_encoder = encoder.JSONEncoder
 @flask_app.before_request
 def get_or_create_user():
     username = request.view_args.get("user")
+    if username is None:
+        return
     query = User.select().where(User.name == username)
     if query.exists():
         user = query.get()
+        user.update_status()
+        user.update_health()
     else:
         user = User.create(name=username)
+        Health.create(user=user)
         i = Inventory.create(user=user)
         for _ in range(CONFIG["start_lootboxes"]):
             i.add_item(Lootbox(rarety=CONFIG["lootboxes_rarety"]["common"]))

@@ -21,3 +21,53 @@ RPG API:
                 ✔ swagger UI @done(20-12-28 18:54)
                 ✔ Configuration @done(20-12-28 21:06)
                 ✔ Database connection @done(20-12-28 21:06)
+        0.2.0:
+            On every request :
+                ✔ update health @done(21-01-03 13:09)
+                ✔ update status @done(21-01-02 18:28)
+            Models:
+                User:
+                    ✔ health @done(21-01-02 18:01)
+                    ✔ health start, ends, start time end time @done(21-01-02 18:07)
+                    ✔ Status @done(21-01-02 18:15)
+            ✔ (GET) hero @done(21-01-03 14:04)
+            ✔ (POST) select items @done(21-01-03 18:00)
+            ✔ (POST) unselect items @done(21-01-04 18:33)
+            (POST) crawl dungeon:
+                ✔ Use Logger as battle report @done(21-01-16 13:58)
+                ✔ Dungeon @done(21-01-16 13:58)
+                ✔ Add potion Effects @started(21-01-16 13:58) @done(21-01-16 17:20) @lasted(3h22m41s)
+                per user:
+                    ✔ Calc and set End time @done(21-01-16 20:57)
+                    ✔ Calc money @done(21-01-16 20:57)
+                    ✔ Calc Lootboxes @done(21-01-16 20:57)
+                    ✔ Set status : crawling @done(21-01-16 21:10)
+                    ✔ Set health @done(21-01-16 21:10)
+                    ✔ Create reports @done(21-01-17 12:53)
+            (GET) Report/{ID}:
+                ✔ Otp id @done(21-01-17 15:21)
+                Model:
+                    ✔ ID @done(21-01-17 12:17)
+                    ✔ FK to user @done(21-01-17 12:17)
+                    ✔ Start date @done(21-01-17 12:18)
+                    ✔ End date @done(21-01-17 12:18)
+                    ✔ Battle log @done(21-01-17 12:19)
+                    ✔ Is_fleeing @done(21-01-17 12:28)
+                    ✔ End health @done(21-01-17 12:28)
+                    ✔ Loots (as a json ?) @done(21-01-17 12:28)
+                    ✔ Money @done(21-01-17 12:28)
+                    ✔ Opened @done(21-01-17 12:28)
+                list all report:
+                    ✔ Can only be visible if end date passed @done(21-01-17 15:21)
+                Open a report with an id:
+                    ✔ Add money and loot to inventory @done(21-01-17 16:17)
+                    ✔ get all infos @done(21-01-17 16:17)
+                    ✔ set report as opened @done(21-01-17 16:17)
+            (GET) full_report/{ID}:
+                ✔ return as text @done(21-01-17 15:22)
+            (GET) User:
+                ✔ return list of username and status @done(21-01-17 16:32)
+            ✔ TU @done(21-01-17 16:37)
+            ✔ Update Readme @done(21-01-17 16:37)
+            0.3.0:
+                ☐ XP ? 

@@ -1,10 +1,11 @@
 openapi: 3.0.0
 servers:
+# Added by API Auto Mocking Plugin
 - url: https://localhost:8080
   description: Local server 
 info:
   description: Simple API to play RPG ⚔
-  version: 0.1.0
+  version: 0.2.0
   title: RPG API
   contact:
     email: jloup.m@gmail.com
@@ -17,6 +18,51 @@ tags:
   - name: Action
     description: All possible actions 
 paths:
+  /users:
+      get:
+        tags:
+          - Information
+        summary: Get all user and status
+        operationId: get_users
+        description: |
+          Get all user and status
+        responses:
+          '200':
+            description: Users status information
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/hero'
+          '400':
+            description: bad input parameter
+        x-openapi-router-controller: rpg_api.controllers.user_controller
+  /hero/{user}:
+      get:
+        tags:
+          - Information
+        summary: Get hero information for a specific user
+        operationId: get_hero
+        description: |
+          Return the hero  of a specific user 
+        parameters:
+          - in: path
+            name: user
+            description: the username of the user
+            required: true
+            schema:
+              type: string
+        responses:
+          '200':
+            description: Hero information
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/hero'
+          '400':
+            description: bad input parameter
+        x-openapi-router-controller: rpg_api.controllers.hero_controller
   /balance/{user}:
     get:
       tags:
@@ -99,6 +145,110 @@ paths:
         '400':
           description: bad input parameter
       x-openapi-router-controller: rpg_api.controllers.image_controller
+  /battle_report/{user}:
+    get:
+      tags:
+        - Information
+      summary: List all battle reports for a user
+      operationId: get_battle_reports
+      description: |
+        List all battle reports for a user; Battle reports are only visible at the end of the dungeon 
+      parameters:
+        - in: path
+          name: user
+          description: the username of the user
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of battle reference
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uuid
+                    date:
+                      type: string
+                      format: date-time
+                    new:
+                      type: boolean
+        '400':
+          description: bad input parameter
+      x-openapi-router-controller: rpg_api.controllers.battle_report_controller
+  /battle_report/{user}/{id}:
+    get:
+      tags:
+        - Information
+      summary: Get a battle reports for a user
+      operationId: get_battle_report
+      description: |
+        Get a battle reports for a user; Battle reports are only visible at the end of the dungeon 
+      parameters:
+        - in: path
+          name: user
+          description: the username of the user
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: id
+          description: id of the battle report
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: battle reference
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/battle_report'
+        '400':
+          description: bad input parameter
+        '404':
+          description: Battle report not found
+      x-openapi-router-controller: rpg_api.controllers.battle_report_controller
+  /full_report/{user}/{id}:
+    get:
+      tags:
+        - Information
+      summary: Get a full reports for a user
+      operationId: get_full_report
+      description: |
+        Get a full reports for a user; Full reports are only visible at the end of the dungeon 
+      parameters:
+        - in: path
+          name: user
+          description: the username of the user
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: id
+          description: id of the full report
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: full reference
+          content:
+            text/plain:
+              schema:
+                type: string
+        '400':
+          description: bad input parameter
+        '404':
+          description: full report not found
+      x-openapi-router-controller: rpg_api.controllers.battle_report_controller
   /open_lootbox/{user}:
     post:
       tags:
@@ -132,11 +282,135 @@ paths:
                 $ref: '#/components/schemas/inventory'
         '400':
           description: bad input parameter
+        '404':
+          description: Loot not found
         '412':
           description: Not enough money
       x-openapi-router-controller: rpg_api.controllers.lootbox_controller
+  /select_loot/{user}:
+    post:
+      tags:
+        - Action
+      summary: Select Loot from user wich is at slot
+      operationId: select_loot
+      description: |
+        select the Loot(s) from user wich is at slot in inventory
+      parameters:
+        - in: path
+          name: user
+          description: the username of the user
+          required: true
+          schema:
+            type: string
+      requestBody:
+          description: the slot(s) of the loot(s)
+          required: true
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: integer
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: bad input parameter
+        '404':
+          description: Loot not found
+        '412':
+          description: Incompatible selection 
+      x-openapi-router-controller: rpg_api.controllers.selection_controller
+      
+  /unselect_loot/{user}:
+    post:
+      tags:
+        - Action
+      summary: Unselect Loot from user wich is at slot
+      operationId: unselect_loot
+      description: |
+        Unselect the Loot(s) from user wich is at slot in inventory
+      parameters:
+        - in: path
+          name: user
+          description: the username of the user
+          required: true
+          schema:
+            type: string
+      requestBody:
+          description: the slot(s) of the loot(s)
+          required: true
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: integer
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: bad input parameter
+        '404':
+          description: Loot not found
+        '412':
+          description: Incompatible selection 
+      x-openapi-router-controller: rpg_api.controllers.selection_controller
+
+  /crawl_dungeon/{user}:
+    post:
+      tags:
+        - Action
+      summary: Send your hero to the dungeon
+      operationId: crawl_dungeon
+      description: |
+        Send your hero to the dungeon, it will retrun with some money and lootboxes
+      parameters:
+        - in: path
+          name: user
+          description: the username of the user
+          required: true
+          schema:
+            type: string
+      requestBody:
+          description: usernames of the players you want to crawl with
+          required: true
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: bad input parameter 
+        '412':
+          description: Hero already crawling dungeon 
+      x-openapi-router-controller: rpg_api.controllers.crawl_dungeon
 components:
   schemas:
+    hero:
+      type: object
+      properties:
+        health:
+          type: number
+        status:
+          type: object
+          properties:
+            name:
+              type: string
+            value:
+              type: integer
+        selected_weapon:
+          $ref: '#/components/schemas/loot'
+        selected_armor:
+          $ref: '#/components/schemas/loot'
+        selected_potion:
+          type: array
+          items:
+            $ref: '#/components/schemas/loot'
     balance:
       type: object
       properties:
@@ -194,3 +468,31 @@ components:
               type: string
             value:
               type: integer
+    battle_report:
+      type: object
+      properties:
+        id: 
+          type: string
+          format: uuid
+        start_date:
+          type: string
+          format: date-time
+        end_date:
+          type: string
+          format: date-time
+        full_report_id:
+          type: string
+          format: uuid
+        fleeing:
+          type: boolean
+        health:
+          type: number
+        money:
+          type: number
+        lootboxes:
+          description: list of lootboxes if first time opening
+          type: array
+          items:
+            $ref: '#/components/schemas/lootbox'
+        first_opening:
+          type: boolean

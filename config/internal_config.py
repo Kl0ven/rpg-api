@@ -1,4 +1,5 @@
 from rpg_icon_generator import Blade_Generator, Potion_Generator, Axe_Generator, Armor_Generator, Hammer_Generator
+from rpg_api.dungeon.effects import Strenght, Protection, Health, Agility, Regeneration
 import os
 
 RARETY = {
@@ -18,6 +19,8 @@ LOOT_TYPE = {
     "hammer": 4
 }
 
+WEAPON = [LOOT_TYPE['blade'], LOOT_TYPE["axe"], LOOT_TYPE['hammer']]
+
 LOOT_GENERATOR = {
     "blade": Blade_Generator,
     "potion": Potion_Generator,
@@ -35,6 +38,12 @@ COMPLEXITY_RANGE = {
 }
 
 
+STATUS = {
+    "Idle": 0,
+    "Crawling dugeon": 1
+}
+
+POTION_EFFECTS = [Strenght, Protection, Health, Agility, Regeneration]
 
 INTERNAL_CONFIG = {
     "lootboxes_rarety": RARETY,
@@ -43,9 +52,13 @@ INTERNAL_CONFIG = {
     "invert_loot_type": {v: k for k, v in LOOT_TYPE.items()},
     "rarety": list(RARETY.keys()),
     "complexity_range": COMPLEXITY_RANGE,
-    "loot_type" : LOOT_TYPE,
     "loot_generator": LOOT_GENERATOR,
     "image_dimension": 64,
     "image_render_scale": 2,
-    "image_output_directory": os.path.normpath(os.path.join(os.getcwd(), "images/"))
+    "image_output_directory": os.path.normpath(os.path.join(os.getcwd(), "assets/images/")),
+    "reports_output_directory": os.path.normpath(os.path.join(os.getcwd(), "assets/reports/")),
+    "status" : STATUS,
+    "invert_status": {v: k for k, v in STATUS.items()},
+    "weapon": WEAPON,
+    "potion_effects": POTION_EFFECTS
 }
