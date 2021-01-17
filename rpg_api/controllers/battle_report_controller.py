@@ -1,6 +1,6 @@
 import connexion
 import six
-from flask import g, send_from_directory
+from flask import g, make_response, abort
 from rpg_api import util
 import logging, datetime
 from rpg_api.models import database
@@ -9,6 +9,8 @@ from rpg_api.models.lootbox import Lootbox
 from playhouse.flask_utils import get_object_or_404
 from config import CONFIG
 import json
+import gzip
+from os import path
 logger = logging.getLogger('RPG_API.balance_controler')
 
 
@@ -51,4 +53,10 @@ def get_battle_report(user, id_):
 
 
 def get_full_report(user, id_):
-    return send_from_directory(CONFIG["reports_output_directory"], "{}.txt".format(id_))
+    filename = path.join(CONFIG["reports_output_directory"], "{}.txt.gz".format(id_))
+    if not path.lexists(filename):
+        abort(404)
+    with gzip.open(filename, 'rt') as f:
+        response = make_response(f.read(), 200)
+        response.mimetype = "text/plain"
+    return response

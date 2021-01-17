@@ -3,7 +3,7 @@
 
 This API is a Lootbox/RPG mini game meant to be used for a discord bot.
 
-## 0.1.0
+## 0.1
 Upon request if a user is not found in DB then it will be created. 
 User have money and lootboxes to start. They can open lootboxes for money.
 As you migth have guess, lootboxes lot items (Blade, Potion, Hammer, Axe, Armor)
@@ -17,7 +17,7 @@ Each item has a rarety factor and a small image generated procedurally using the
 ![Blade_100](https://raw.githubusercontent.com/Kl0ven/rpg-icon-generator/master/docs/blades/blade_100.png)![Potion_100](https://raw.githubusercontent.com/Kl0ven/rpg-icon-generator/master/docs/potions/potion_100.png)![Axe_100](https://raw.githubusercontent.com/Kl0ven/rpg-icon-generator/master/docs/axes/axe_100.png)![Armor_100](https://raw.githubusercontent.com/Kl0ven/rpg-icon-generator/master/docs/armors/armor_100.png)![Hammer_100](https://raw.githubusercontent.com/Kl0ven/rpg-icon-generator/master/docs/hammers/hammer_100.png)
 
 
-## 0.2.0
+## 0.2
 You now have access to your hero with health, and selected items (1 armor, 1 weapon, N potions).
 You can select items with  select_loot/ and unselect with unselect_loot/.
 
