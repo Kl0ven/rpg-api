@@ -298,7 +298,7 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200)\r",
-							"    postman.setNextRequest(\"get hero\")\r",
+							"    postman.setNextRequest(\"get users\")\r",
 							"})"
 						],
 						"type": "text/javascript"
@@ -327,6 +327,56 @@
 					"path": [
 						"select_loot",
 						"Kloven"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"postman.setNextRequest(\"get hero\")\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"\r",
+							"pm.test(\"List of hero is only one\", function () {\r",
+							"    res = pm.response.json()\r",
+							"    loots = pm.environment.get(\"loots\")\r",
+							"    pm.expect(res.length).to.equal(1)\r",
+							"    pm.expect(res[0].health).to.equal(100)\r",
+							"    pm.expect(res[0].status).to.deep.equal({\r",
+							"            \"name\": \"Idle\",\r",
+							"            \"value\": 0\r",
+							"        })\r",
+							"    pm.expect(res[0].selected_armor).to.deep.equal(loots.armor)\r",
+							"    pm.expect(res[0].selected_weapon).to.deep.equal(loots.weapon)\r",
+							"    if (loots.potion != null){\r",
+							"        pm.expect(res[0].selected_potion[0]).to.deep.equal(loots.potion)\r",
+							"    }\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{HOST}}:{{PORT}}/users",
+					"protocol": "http",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"users"
 					]
 				}
 			},
@@ -567,7 +617,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"postman.setNextRequest(\"\")\r",
+							"postman.setNextRequest(null)\r",
 							"pm.test(\"Status code is 404\", function () {\r",
 							"    pm.response.to.have.status(404)\r",
 							"})"

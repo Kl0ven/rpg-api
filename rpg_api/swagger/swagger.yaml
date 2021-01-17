@@ -18,7 +18,26 @@ tags:
   - name: Action
     description: All possible actions 
 paths:
-
+  /users:
+      get:
+        tags:
+          - Information
+        summary: Get all user and status
+        operationId: get_users
+        description: |
+          Get all user and status
+        responses:
+          '200':
+            description: Users status information
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/hero'
+          '400':
+            description: bad input parameter
+        x-openapi-router-controller: rpg_api.controllers.user_controller
   /hero/{user}:
       get:
         tags:

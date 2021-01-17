@@ -56,6 +56,8 @@ flask_app.json_encoder = encoder.JSONEncoder
 @flask_app.before_request
 def get_or_create_user():
     username = request.view_args.get("user")
+    if username is None:
+        return
     query = User.select().where(User.name == username)
     if query.exists():
         user = query.get()
