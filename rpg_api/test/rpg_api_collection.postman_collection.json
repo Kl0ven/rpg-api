@@ -434,7 +434,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"postman.setNextRequest(\"\")\r",
+							"postman.setNextRequest(\"crawl dungeon\")\r",
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200)\r",
 							"})\r",
@@ -468,6 +468,135 @@
 					"port": "{{PORT}}",
 					"path": [
 						"hero",
+						"Kloven"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crawl dungeon",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"postman.setNextRequest(\"crawl dungeon 412\")\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{HOST}}:{{PORT}}/crawl_dungeon/Kloven",
+					"protocol": "http",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"crawl_dungeon",
+						"Kloven"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crawl dungeon 412",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"postman.setNextRequest(\"crawl dungeon 404\")\r",
+							"pm.test(\"Status code is 412\", function () {\r",
+							"    pm.response.to.have.status(412)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{HOST}}:{{PORT}}/crawl_dungeon/Kloven",
+					"protocol": "http",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"crawl_dungeon",
+						"Kloven"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crawl dungeon 404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"postman.setNextRequest(\"\")\r",
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\"Haukain\"]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{HOST}}:{{PORT}}/crawl_dungeon/Kloven",
+					"protocol": "http",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"crawl_dungeon",
 						"Kloven"
 					]
 				}

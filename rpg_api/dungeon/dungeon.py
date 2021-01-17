@@ -1,6 +1,7 @@
 import logging
 from rpg_api.dungeon.hero import Hero
 from rpg_api.dungeon.room import Room
+from config import CONFIG
 logger = logging.getLogger('RPG_API.dungeon')
 
 
@@ -24,6 +25,15 @@ class Dungeon(object):
             # fight => Room clear or Dead
             clear = r.fight()
 
-            break
             # wind_down
             alive_heros = [h for h in self.heros if not h.is_dead_or_fleeing()]
+
+            for h in alive_heros:
+                h.health += CONFIG["btw_rooms_regen"]
+                h.room_cleared += 1
+                self.reporter.log("Rest and gain {} health".format(CONFIG["btw_rooms_regen"]), h)
+        result = {}
+        for h in self.heros:
+            result[h.name] = (h.room_cleared, h.fleeing, h.health)
+        return result
+        

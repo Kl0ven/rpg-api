@@ -39,18 +39,18 @@ class Room(object):
                 if not p.is_alive():
                     continue
                 self.reporter.log("Start his turn {}".format(turn), p)
+                self.reporter.log(str(p))
 
                 if isinstance(p, Hero):
-                    ennemy = self.mobs
+                    ennemies = [m for m in self.mobs if m.is_alive()]
                 else:
-                    ennemy = self.heros    
-                p.turn(ennemy=ennemy)
+                    ennemies = [h for h in self.heros if h.is_alive()]
+                p.turn(ennemies=ennemies)
                 self.reporter.sep(length=20)
 
-            if turn == 10:
-                break
             heros_alive, mobs_alive = self.__compute_liveliness()
             turn += 1
+        return mobs_alive
 
     def __compute_liveliness(self):
         heros_alive = any([h.is_alive() for h in self.heros])

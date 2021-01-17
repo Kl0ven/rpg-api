@@ -36,30 +36,36 @@ RPG API:
             (POST) crawl dungeon:
                 ✔ Use Logger as battle report @done(21-01-16 13:58)
                 ✔ Dungeon @done(21-01-16 13:58)
-                ☐ Add potion Effects @started(21-01-16 13:58)
-                ☐ Calc regene health
-                ☐ Set status : crawling
-                ☐ Calc and set End time
-                ☐ Create report
+                ✔ Add potion Effects @started(21-01-16 13:58) @done(21-01-16 17:20) @lasted(3h22m41s)
+                per user:
+                    ✔ Calc and set End time @done(21-01-16 20:57)
+                    ✔ Calc money @done(21-01-16 20:57)
+                    ✔ Calc Lootboxes @done(21-01-16 20:57)
+                    ✔ Set status : crawling @done(21-01-16 21:10)
+                    ✔ Set health @done(21-01-16 21:10)
+                    ✔ Create reports @done(21-01-17 12:53)
             (GET) Report/{ID}:
                 ☐ Otp id
                 Model:
-                    ☐ ID
-                    ☐ FK to user
-                    ☐ Start date
-                    ☐ End date
-                    ☐ Battle log
-                    ☐ Is_fleeing
-                    ☐ End health
-                    ☐ Loots (as a json ?)
-                    ☐ Money
-                    ☐ Opened 
+                    ✔ ID @done(21-01-17 12:17)
+                    ✔ FK to user @done(21-01-17 12:17)
+                    ✔ Start date @done(21-01-17 12:18)
+                    ✔ End date @done(21-01-17 12:18)
+                    ✔ Battle log @done(21-01-17 12:19)
+                    ✔ Is_fleeing @done(21-01-17 12:28)
+                    ✔ End health @done(21-01-17 12:28)
+                    ✔ Loots (as a json ?) @done(21-01-17 12:28)
+                    ✔ Money @done(21-01-17 12:28)
+                    ✔ Opened @done(21-01-17 12:28)
                 list all report:
                     ☐ Can only be visible if end date passed  
                 Open a report with an id:
                     ☐ Add money and loot to inventory 
                     ☐ get all infos
                     ☐ set report as opened
+            (GET) User:
+                ☐ return list of username and status
+            ☐ TU
             ☐ Update Readme
         
             0.3.0:

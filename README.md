@@ -65,6 +65,6 @@ CONFIG = {
 You should also mount a volume to persiste data (items images):
 ```yaml
 volumes:
-      - ./.images:/usr/src/app/images
+      - ./.assets:/usr/src/app/assets
 
 ```

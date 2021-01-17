@@ -53,6 +53,15 @@ class User(database.Model, peewee_signals.Model):
             "selected_weapon": inv.get_selected_weapon(),
         }
 
+    def start_crawling(self, end_time):
+        self.status = CONFIG["status"]["Crawling dugeon"]
+        self.next_status = CONFIG["status"]["Idle"]
+        self.next_status_time = end_time
+        h = self.health.get()
+        h.set_health_decay(end_time)
+        h.save()
+        self.save()
+        
 
     class Meta:
         db_table = "users"

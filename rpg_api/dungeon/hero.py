@@ -6,6 +6,7 @@ class Hero(Character):
     def __init__(self, **kwargs):
         super(Hero, self).__init__(**kwargs)
         self.fleeing = False
+        self.room_cleared = 1
 
     def is_dead_or_fleeing(self):
         if self.fleeing or self.health <0:

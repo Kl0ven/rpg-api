@@ -5,6 +5,7 @@ class Base_Effect(object):
         self.turn = 0 
         self.name = None
         self.reporter = user.reporter
+        self.one_shot_effect = False
 
     def __str__(self):
         return self.name
@@ -13,7 +14,7 @@ class Base_Effect(object):
         return str(self)
 
     def is_finish(self):
-        return self.turn > self.nb_of_turn
+        return self.turn > self.nb_of_turn or self.one_shot_effect
 
     def start(self):
         self.reporter.log("Gained {} effect for {} turns".format(self.name, self.nb_of_turn), self.user)
