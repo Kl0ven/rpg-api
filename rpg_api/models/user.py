@@ -46,6 +46,7 @@ class User(database.Model, peewee_signals.Model):
     def to_dict(self):
         inv = self.inventory.get()
         return {
+            "name": self.name,
             "health": self.get_health(),
             "status": self.get_status(),
             "selected_armor": inv.get_selected_armor(),
