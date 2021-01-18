@@ -1,7 +1,8 @@
 FROM python:3.8-slim
 
 RUN mkdir -p /usr/src/app
-RUN mkdir -p /usr/src/app/images
+RUN mkdir -p /usr/src/app/assets/images
+RUN mkdir -p /usr/src/app/assets/reports
 WORKDIR /usr/src/app
 
 RUN apt-get update \
