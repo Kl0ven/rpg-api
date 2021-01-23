@@ -1,15 +1,16 @@
 import connexion
 import six
+import uuid
+import gzip
+import json
+import logging, datetime
 from flask import g, make_response, abort
 from rpg_api import util
-import logging, datetime
 from rpg_api.models import database
 from rpg_api.models.battle_report import Battle_report
 from rpg_api.models.lootbox import Lootbox
 from playhouse.flask_utils import get_object_or_404
 from config import CONFIG
-import json
-import gzip
 from os import path
 logger = logging.getLogger('RPG_API.balance_controler')
 
@@ -33,7 +34,11 @@ def get_battle_reports(user):  # noqa: E501
 
 
 def get_battle_report(user, id_):
-    with database.database.atomic() as ctx:
+    try:
+        _ = uuid.UUID(id_)
+    except ValueError:
+        abort(404)
+    with database.database.atomic():
         br = get_object_or_404(Battle_report.select().where(g.user.id == Battle_report.user), Battle_report.br_id == id_)
         if not br.opened:
             br.opened = True
