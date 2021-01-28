@@ -37,6 +37,13 @@ flask_app.logger.info("Running in {} mode with {} log level".format(mode, loggin
 config.load_config()
 from config import CONFIG
 
+# create directoy at startup
+directory = [CONFIG["image_output_directory"], CONFIG["reports_output_directory"]]
+for d in directory:
+    if not os.path.exists(d):
+        flask_app.logger.info("Creating {} directory".format(d))
+        os.makedirs(d)
+
 # DB
 from rpg_api.models import database, init_models, User, Inventory, Lootbox, Health
 db_url = 'sqlite:///rpg_api/test/CI.db' if mode == "CI" else os.environ.get('DATABASE_URL')

@@ -1,6 +1,6 @@
 # debugger.py
 def initialize_flask_server_debugger_if_needed(mode):
-    if mode != "PRODUCTION":
+    if mode not in  ["PRODUCTION", "CI"]:
         import multiprocessing
 
         if multiprocessing.current_process().pid > 1:

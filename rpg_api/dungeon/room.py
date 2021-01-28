@@ -38,13 +38,17 @@ class Room(object):
             for p in players:
                 if not p.is_alive():
                     continue
+                alive_mobs = [m for m in self.mobs if m.is_alive()]
+                aliv_heros = [h for h in self.heros if h.is_alive()]
+                if len(aliv_heros) == 0 or len(alive_mobs) == 0:
+                    break
                 self.reporter.log("Start his turn {}".format(turn), p)
                 self.reporter.log(str(p))
 
                 if isinstance(p, Hero):
-                    ennemies = [m for m in self.mobs if m.is_alive()]
+                    ennemies = alive_mobs
                 else:
-                    ennemies = [h for h in self.heros if h.is_alive()]
+                    ennemies = aliv_heros
                 p.turn(ennemies=ennemies)
                 self.reporter.sep(length=20)
 

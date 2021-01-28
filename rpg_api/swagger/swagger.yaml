@@ -394,6 +394,8 @@ components:
     hero:
       type: object
       properties:
+        name:
+          type: string
         health:
           type: number
         status:

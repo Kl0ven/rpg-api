@@ -2,6 +2,7 @@ from io import StringIO as StringBuffer
 import logging
 from config import CONFIG
 import shutil, os, uuid
+import gzip
 
 class Reporter(object):
     def __init__(self):
@@ -45,8 +46,8 @@ class Reporter(object):
 
     def save(self):
         uid = uuid.uuid4() 
-        name = "{}.txt".format(uid)
-        with open(os.path.join(CONFIG['reports_output_directory'], name), 'w') as fd:
+        name = "{}.txt.gz".format(uid)
+        with gzip.open(os.path.join(CONFIG['reports_output_directory'], name), 'wt') as fd:
             self.report.seek(0)
             shutil.copyfileobj(self.report, fd)
         return uid

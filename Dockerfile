@@ -1,7 +1,8 @@
 FROM python:3.8-slim
 
 RUN mkdir -p /usr/src/app
-RUN mkdir -p /usr/src/app/images
+RUN mkdir -p /usr/src/app/assets/images
+RUN mkdir -p /usr/src/app/assets/reports
 WORKDIR /usr/src/app
 
 RUN apt-get update \
@@ -16,7 +17,7 @@ COPY . /usr/src/app
 
 RUN apt-get purge -y --auto-remove gcc
 
-VOLUME [ "/usr/src/app/images" ]
+VOLUME [ "/usr/src/app/assets" ]
 
 EXPOSE 8080
 ENV MODE=PRODUCTION
