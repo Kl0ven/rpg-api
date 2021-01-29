@@ -28,8 +28,8 @@ class Battle_report(database.Model, peewee_signals.Model):
             self.first_opening = False
         return {
             "id": self.br_id,
-            "start_date": self.start_date,
-            "end_date": self.end_date,
+            "start_date": self.start_date.isoformat(),
+            "end_date": self.end_date.isoformat(),
             "full_report_id": self.full_report,
             "fleeing": self.is_fleeing,
             "health": self.health,

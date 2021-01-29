@@ -32,6 +32,8 @@ class Loot(Item):
             }
         }
 
+    def refresh(self):
+        return type(self).get(self._pk_expr())
 
 
     class Meta:
