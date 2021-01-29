@@ -29,7 +29,7 @@ def get_battle_reports(user):  # noqa: E501
     now = datetime.datetime.now()
     for br in g.user.battle_reports:
         if br.end_date < now: 
-            brs.append({"id": br.br_id, "date": br.start_date, "new": not br.opened})
+            brs.append({"id": br.br_id, "date": br.start_date.isoformat(), "new": not br.opened})
     return brs
 
 

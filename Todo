@@ -72,8 +72,11 @@ RPG API:
             HF:
                 ✔ Update user when calling /users @done(21-01-28 19:49)
 
+            0.2.6:
+                ✔ date to iso date @done(21-01-29 18:15)
+                ✔ rebuild index @done(21-01-29 18:33)
+
             0.3.0:
                 ☐ XP ? 
                 ☐ Room in /me
-                ☐ rebuild index
                 ☐ Display loot stats ? 

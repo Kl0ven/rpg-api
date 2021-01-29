@@ -70,4 +70,5 @@ def open_lootbox(body, user):  # noqa: E501
                     complexity_factor=loot_complexity)
                 inv.add_item(loot)
                 loots.append(loot)
-    return loots
+        inv.rebuild_index()
+    return [l.refresh() for l in loots]

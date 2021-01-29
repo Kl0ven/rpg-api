@@ -61,6 +61,20 @@ class Inventory(database.Model, peewee_signals.Model):
             return weapon.get()
         else:
             return None
+    
+    def rebuild_index(self):
+        loots = list(self.loot_set.select().order_by(self.loot_model.slot.asc()))
+        lbs = list(self.lootbox_set.select().order_by(self.lootbox_model.slot.asc()))
+        items = loots + lbs
+        for i, item in enumerate(items):
+            slot = i + 1
+            print(i, item)
+            if item.slot != slot:
+                item.slot = slot
+                item.save()
+        self.next_slot = slot+1
+        self.save()
+
 
     class Meta:
         db_table = "inventories"
