@@ -40,11 +40,15 @@ def crawl_dungeon(body, user):  # noqa: E501
         resultat = d.crawl()
         report = reporter.save()
         for user in users:
-            rooms, fleeing, health = resultat[user.name.capitalize()]
+            rooms, fleeing, health, used_potions = resultat[user.name.capitalize()]
             elapsed_time = timedelta(minutes=rooms*CONFIG["minutes_per_room"])
             end_time = datetime.now() + elapsed_time
             money = get_money_from_room(rooms)
             lb_rarety, nb = get_lb_stats(rooms)
+
+            # remove used potion
+            for p in used_potions:
+                p.delete_instance()
 
             # set state to crawling and end_date of state
             # set user health
@@ -62,6 +66,7 @@ def crawl_dungeon(body, user):  # noqa: E501
                 )
             b.save()
             user.save()
+            user.inventory[0].rebuild_index()
     return "", 200
 
 def get_money_from_room(r):

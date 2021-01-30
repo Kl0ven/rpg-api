@@ -9,6 +9,7 @@ class Character(object):
         self.atk = atk
         self.deff = deff
         self.potions = potions
+        self.used_potions = []
         self.health = health
         self.initiative = None
         self.reporter = rep
@@ -35,6 +36,8 @@ class Character(object):
         if step == self.POTION_STEP:
             p = random.choice(self.potions)
             p.used = True
+            self.potions.remove(p)
+            self.used_potions.append(p)
             self.reporter.log("Choose to use a {}".format(p.name), self)
             effect = random.choice(CONFIG["potion_effects"])
             nb_of_turn = self.get_effect_duration(p)

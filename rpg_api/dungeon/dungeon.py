@@ -34,6 +34,6 @@ class Dungeon(object):
                 self.reporter.log("Rest and gain {} health".format(CONFIG["btw_rooms_regen"]), h)
         result = {}
         for h in self.heros:
-            result[h.name] = (h.room_cleared, h.fleeing, h.health)
+            result[h.name] = (h.room_cleared, h.fleeing, h.health, h.used_potions)
         return result
         
