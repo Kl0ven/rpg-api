@@ -32,6 +32,8 @@ def crawl_dungeon(body, user):  # noqa: E501
 
     
     for user in users:
+        user.update_status()
+        user.update_health()
         if user.status != CONFIG["status"]["Idle"]:
             abort(412, "{} already crawling dungeon".format(user.name))
 
